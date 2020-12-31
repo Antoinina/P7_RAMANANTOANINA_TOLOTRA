@@ -1,0 +1,23 @@
+.navbar{
+    .col-6,.nav-link{
+        padding: 0;
+    }
+    .col-sm-6{
+        padding-left: 0;
+    }
+}
+.menu-profil{
+    position: absolute;
+    right: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    z-index: 1000;
+    background-color: white;
+    text-align: right;
+    padding: .5rem 0;
+    margin: .125rem 0 0;
+    font-size: 1rem;
+    svg{
+        margin-bottom:3px;
+    }
+}

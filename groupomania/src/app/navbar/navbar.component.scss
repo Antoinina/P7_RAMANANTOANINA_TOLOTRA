@@ -1,0 +1,13 @@
+nav{ 
+    background-color: #D1515A;
+    .navbar{
+        margin-bottom: 0;
+        list-style:none;
+    }
+}
+.active{
+    background-color:inherit;
+    svg{
+        fill:#091F43;
+    }
+}
