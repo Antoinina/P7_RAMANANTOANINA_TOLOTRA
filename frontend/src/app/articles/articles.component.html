@@ -1,0 +1,8 @@
+<app-header></app-header>
+<app-navbar></app-navbar>
+<section class="container">
+    <div *ngFor='let article of templateArticles'>
+        <img class="col-2" [src]='article.imageUrl'>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -10,23 +10,26 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignComponent } from './sign/sign.component';
 import { ArticlesComponent } from './articles/articles.component';
-import { PicturesComponent } from './pictures/pictures.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AccountComponent } from './account/account.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ConditionPageComponent } from './condition-page/condition-page.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign', component: SignComponent },
   { path: 'articles', component: ArticlesComponent },
-  { path: 'pictures', component: PicturesComponent },
   { path: 'profile', component: AccountComponent },
   { path: 'auth', component: AuthPageComponent },
   { path: 'condition', component: ConditionPageComponent },
   { path: '', component: AuthPageComponent },
+  { path: 'not-found', component: FourOhFourComponent },
+  { path: '**', redirectTo: '/not-found'} /* path wildcard show an inexistant route, and redirect the user to a 404 page */
 ];
 
 @NgModule({
@@ -37,19 +40,22 @@ const appRoutes: Routes = [
     LoginComponent,
     SignComponent,
     ArticlesComponent,
-    PicturesComponent,
     NavbarComponent,
     AccountComponent,
     HeaderComponent,
     FooterComponent,
-    ConditionPageComponent
+    ConditionPageComponent,
+    FourOhFourComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
