@@ -1,5 +1,7 @@
 section{
-    margin-bottom:5em;
+    margin-bottom:10em;
+    position: relative;
+    top: 6em;
     img{
         width: 100%;
     }
@@ -12,5 +14,10 @@ section{
     hr{
         border: 2px solid #D1515A;
         background-color: #D1515A;
+    }
+}
+@media screen and (min-width:1200px){
+    section{
+        top:10em!important;
     }
 }

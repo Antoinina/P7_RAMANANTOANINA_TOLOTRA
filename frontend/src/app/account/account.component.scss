@@ -1,0 +1,56 @@
+*{
+    font-family: 'Calibri';
+    background-color: #091F43;
+    color:white;
+}
+section{
+    height: auto;
+    img{
+        border-radius: 50%;
+    }
+    .header-profil{
+        padding:2em 0 2em 0;
+    }
+    .information-container{
+        border: 1px solid white;
+        padding: 1em;
+        margin:1em 0;
+        border-radius: 0.25rem;
+        .btn-container{
+            margin-top:2em;
+            input{
+                color: #D1515A;
+                &:focus{
+                    box-shadow:inherit!important;
+                }
+            }            
+        }
+    }
+    .btn-delete{
+        margin-top:2em;
+        margin-bottom: 2em;
+        background-color: white;
+        color: black;
+    }
+}
+@media (max-width:575.8px){
+    .col-sm-2{
+        width:12em;
+    }
+}
+@media screen and (min-width:1200px){
+    .btn-container{
+        div{
+            display: initial;
+            label, input{
+                margin:0 0.5em;
+            }
+        }
+    }
+}
+footer{
+    p{
+        margin-bottom: 0;
+        padding-bottom: 1em;
+    }
+}

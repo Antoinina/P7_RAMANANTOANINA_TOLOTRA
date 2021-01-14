@@ -1,0 +1,36 @@
+@media (max-width:576px){
+    .col-sm-1{
+        width:6em;
+    }
+}
+@media screen and (min-width: 992px){
+    section{
+        top:6em!important;
+    }
+}
+section{
+    position: relative;
+    top:4em;
+    margin:2em 0;
+    padding-top:1em;
+}
+
+.publication-container{
+    margin-top:1em;
+}
+
+h2,.number{
+    margin-bottom: 0;
+}
+
+.icon-container{
+    box-shadow: 0px 3px 3px 0.5px rgba(9, 31, 67, 0.7);
+    padding:0.5em 0;
+    .icon-like{
+        margin-bottom: 2px;
+    }
+    button{
+        border: none;
+        background-color: transparent;
+    }
+}
