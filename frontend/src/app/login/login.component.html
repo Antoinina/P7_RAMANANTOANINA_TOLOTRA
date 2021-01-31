@@ -3,16 +3,16 @@
         <h1 class="h3">Connectez-vous</h1>
         <img class="col-md-5" src="assets/logo/icon-left-font-monochrome-white.png" alt="Logo de Groupomania">
     </header>
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
         <div class="form-group">
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Adresse email" required autofocus>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Adresse email" name="inputEmail" ngModel required autofocus>
         </div>
         <div class="form-group">
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" name="inputPassword" ngModel required>
         </div>
-        <button class="btn btn-lg btn-dark btn-block text-uppercase" type="submit">Confirmer</button>
+        <button class="btn btn-lg btn-dark btn-block text-uppercase" type="submit" [disabled]="f.invalid">Confirmer</button>
         <a class="text-muted" routerLink="">Retour</a>
     </form>
     <footer class="text-muted">

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthPageComponent } from './auth-page/auth-page.component';
@@ -18,6 +18,7 @@ import { ConditionPageComponent } from './condition-page/condition-page.componen
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { ArticleFormComponent } from './article-form/article-form.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: AccountComponent },
   { path: 'auth', component: AuthPageComponent },
   { path: 'condition', component: ConditionPageComponent },
+  { path :'publication', component : ArticleFormComponent },
   { path: '', component: AuthPageComponent },
   { path: 'not-found', component: FourOhFourComponent },
   { path: '**', redirectTo: '/not-found'} /* path wildcard show an inexistant route, and redirect the user to a 404 page */
@@ -45,11 +47,13 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     ConditionPageComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    ArticleFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

@@ -15,27 +15,27 @@
         <h5>E-mail : {{account.email}}</h5>
         <div class="row flex-column align-items-center btn-container">
             <input class="btn" type="button" (click)="changePwd()" value="Changer mon mot de passe">
-            <div *ngIf="newPwd" class="row flex-column align-items-center pwd-container">
+            <form *ngIf="newPwd" class="row flex-column align-items-center pwd-container" (ngSubmit)="onSubmit(p)" #p="ngForm">
                 <label for="currentPwd">Mon mot de passe</label>
-                <input class="btn btn-light" type="password" id="currentPwd">
+                <input class="btn btn-light" type="password" id="currentPwd" name="currentPwd" ngModel required>
                 <label for="newPwd">Mon nouveau mot de passe</label>
-                <input class="btn btn-light" type="password" id="newPwd">
+                <input class="btn btn-light" type="password" id="newPwd" name="newPwd" ngModel required>
                 <label for="confirmPwd">Confirmer mon mot de passe</label>
-                <input class="btn btn-light" type="password" id="confirmPwd">
-                <input type="button" class="btn btn-delete text-dark" value="Valider">
-            </div>
+                <input class="btn btn-light" type="password" id="confirmPwd" name="confirmPwd" ngModel required>
+                <button type="submit" class="btn btn-delete text-dark" [disabled]="p.invalid">Valider</button>
+            </form>
             <input class="btn" type="button" (click)="changeProfil()" value="Mettre à jour mes informations">
-            <div *ngIf="newProfil"  class="row flex-column align-items-center">
+            <form *ngIf="newProfil"  class="row flex-column align-items-center" (ngSubmit)="onSubmit(f)" #f="ngForm">
                 <label for="lastname">Nom</label>
-                <input class="btn btn-light" type="text" id="name">
+                <input class="btn btn-light" type="text" id="lastname" name="lastname" ngModel required>
                 <label for="firstname">Prénom</label>
-                <input class="btn btn-light" type="text" id="firstname">
+                <input class="btn btn-light" type="text" id="firstname" name="firstname" ngModel required>
                 <label for="jobTitle">Poste de travail</label>
-                <input class="btn btn-light" type="text" id="jobTitle">
+                <input class="btn btn-light" type="text" id="jobTitle" name="jobTitle" ngModel required>
                 <label for="email">E-mail</label>
-                <input class="btn btn-light" type="email" id="email">
-                <input type="button" class="btn btn-delete text-dark" value="Valider">
-            </div>
+                <input class="btn btn-light" type="email" id="email" name="email" ngModel required>
+                <button type="submit" class="btn btn-delete text-dark" [disabled]="f.invalid">Valider</button>
+            </form>
         </div>   
     </div>
     <input class="btn btn-light btn-delete" type="button" value="Supprimer mon compte">

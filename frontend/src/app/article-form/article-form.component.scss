@@ -1,0 +1,29 @@
+@media (max-width:576px){
+    .col-sm-1{
+        width:6em;
+    }
+}
+@media screen and (min-width: 992px){
+    section{
+        top:12em!important;
+    }
+}
+
+section{
+    position: relative;
+    top: 8em;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+}
+textarea{
+    border:0;
+    height: 350px;
+    padding:1em 0;
+    &:focus{
+        box-shadow: inherit;
+    }
+}
+
+h2{
+    margin-bottom: 0;
+}
