@@ -12,72 +12,65 @@ const Article = function (article) {
 Article.create = (newArticle, result) => {
     sql.query("INSERT INTO Articles SET ?", newArticle, (err, res) => {
         if (err) {
-            console.log("error: ", err);
+            console.log("Error appeared: ", err);
             result(err, null);
             return;
         }
 
-        console.log("created article: ", { id: res.insertId, ...newArticle });
+        console.log("Article published: ", { id: res.insertId, ...newArticle });
         result(null, { id: res.insertId, ...newArticle });
     });
 };
 
-/* Get all articles saved in the db */
-Article.getAll = result => {
+/* To get all articles saved in the db */
+Article.getAll = (result) => {
     sql.query("SELECT * FROM Articles", (err, res) => {
         if (err) {
-            console.log("error: ", err);
+            console.log("Error appeared: ", err);
             result(null, err);
             return;
         }
 
-        console.log("Articles: ", res);
-        result(null, res);
-    });
-};
-
-/* Delete the article into db */
-Article.remove = (id, result) => {
-    sql.query("DELETE FROM Articles WHERE id = ?", id, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err);
-            return;
-        }
-
-        if (res.affectedRows == 0) {
-            // not found Article with the id
-            result({ kind: "not_found" }, null);
-            return;
-        }
-
-        console.log("deleted article with id: ", id);
+        console.log("All articles published: ", res);
         result(null, res);
     });
 };
 
 /* To modify the publication or to update the likes and comments number */
-Article.updateById = (id, article, result) => {
+Article.updateById = (id, newArticle, result) => {
     sql.query(
       "UPDATE Articles SET publication = ?, likes = ?, comments = ? WHERE id = ?",
-      [article.publication, article.likes, article.comments, id],
+      [newArticle.publication, newArticle.likes, newArticle.comments, id],
       (err, res) => {
         if (err) {
-          console.log("error: ", err);
+          console.log("Error appeared: ", err);
           result(null, err);
           return;
         }
   
-        if (res.affectedRows == 0) {
-          // not found article with the id
-          result({ kind: "not_found" }, null);
-          return;
-        }
-  
-        console.log("updated article: ", { id: id, ...article });
-        result(null, { id: id, ...article });
+        console.log("Updated article: ", { id: id, ...newArticle });
+        result(null, { id: id, ...newArticle });
       }
     );
   };
+
+/* Delete the article into db */
+Article.remove = (id, result) => {
+    sql.query("DELETE FROM Articles WHERE id = ?", [id], (err, res) => {
+        if (err) {
+            console.log("Error appeared: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null); // The article was already deleted
+            return;
+        }
+
+        console.log("This article was deleted: ", id);
+        result(null, res);
+    });
+};
 
 module.exports = Article;

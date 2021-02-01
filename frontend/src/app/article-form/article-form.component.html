@@ -12,9 +12,9 @@
     </div>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
-            <label for="article_published" class="sr-only">Publication</label>
-            <textarea id="article_published" name="article_published" type="text" class="form-control" placeholder="Partage avec nous ce que tu veux {{user.name}}" ngModel required></textarea>
-            <button type="submit" class="btn btn-dark col-12" [disabled]="f.invalid">Publier</button>
+            <label for="publication" class="sr-only">Publication</label>
+            <textarea id="publication" name="publication" type="text" class="form-control" placeholder="Partage avec nous ce que tu veux {{user.name}}" [(ngModel)]="article.publication" required></textarea>
+            <button type="submit" (click)="saveArticle" routerLink="/articles" class="btn btn-dark col-12" [disabled]="f.invalid">Publier</button>
         </div>
     </form>
 </section>

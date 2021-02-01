@@ -2,12 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./models/db');
 const path = require('path');
-
+const session = require('express-session'); // To made a session
 const app = express(); //App Express created
 
 // Import the router in the app
 const articleRoutes = require('./routes/article');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/auth');
 
 connection.connect((err) => {
     if (err) throw err;
@@ -22,11 +22,18 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(session({
+    secret: 'JlkjdLKJD25dzajk@zjDz',
+    resave: true,
+    saveUninitialized: true
+}));
+
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(bodyParser.json()); // To apply in all application
+app.use(bodyParser.urlencoded({extended : true}));
 
 app.use('/api/auth', userRoutes);
-app.use('/api/article', articleRoutes);
+app.use('/api', articleRoutes);
 
 module.exports = app;

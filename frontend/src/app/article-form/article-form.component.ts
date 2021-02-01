@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Article } from '../models/Article.model';
+import { ArticleService } from '../services/articles.service';
 
 @Component({
   selector: 'app-article-form',
@@ -8,13 +10,37 @@ import { NgForm } from '@angular/forms';
 })
 export class ArticleFormComponent implements OnInit {
 
-  constructor() { }
+  article: Article = {
+    publication: '',
+    likes: 0,
+    comments: 0,
+    date_published : Date()
+  };
+
+  constructor(private articleService: ArticleService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(form:NgForm){
     console.log(form.value);
+  }
+
+  saveArticle(): void{
+    const data = {
+      publication: this.article.publication,
+      likes: this.article.likes,
+      comments: this.article.comments,
+      date_published: this.article.date_published
+    };
+
+    this.articleService.createArticle(data)
+      .subscribe(res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      });
   }
 
   templateArticleForm = [

@@ -1,81 +1,96 @@
 const sql = require('./db.js');
 
+
+/* The user constructor */
 const Customer = function(customer){
-    this.userId = customer.userId;
+    this.email = customer.email;
+    this.password = customer.password;
     this.imageUrl = customer.imageUrl;
     this.name = customer.name;
-    this.job = customer.job;
+    this.jobTitle = customer.jobTitle;
 };
 
-/* Create customer in the db */
+/* Create user profil in the db */
 Customer.create = (newCustomer, result) => {
-    sql.query("INSERT INTO Customers SET ?", newCustomer, (err, res, req) => {
+    sql.query("INSERT INTO Users SET ?", newCustomer, (err, res) => {
       if (err) {
-        console.log("error: ", err);
+        console.log("Error appeared: ", err);
         result(err, null);
         return;
       }
   
-      console.log("created customer: ", { id: res.insertId, ...newCustomer, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` });
+      console.log("Successful customer creation: ", { id: res.insertId, ...newCustomer });
       result(null, { id: res.insertId, ...newCustomer });
     });
 };
 
-/* Delete the user into db */
-Customer.remove = (id, result) => {
-  sql.query("DELETE FROM Customers WHERE id = ?", id, (err, res) => {
+/* To access the user profil saved in the db */
+Customer.findById = (userId, result) => {
+  sql.query("SELECT * FROM Users WHERE id = ?", [userId], (err, res) => {
       if (err) {
-          console.log("error: ", err);
+          console.log("Error appeared: ", err);
           result(null, err);
           return;
       }
 
-      if (res.affectedRows == 0) {
-          // not found User with the id
-          result({ kind: "not_found" }, null);
-          return;
-      }
-
-      console.log("deleted user with id: ", id);
+      console.log("Customer selected: ", res);
       result(null, res);
   });
 };
 
-/* To modify the publication or to update the likes and comments number */
-Customer.updateById = (id, updateCustomer, result, req) => {
+/* To modify the user profil */
+Customer.updateById = (id, updateCustomer, result) => {
   sql.query(
-    "UPDATE Customers SET imageUrl = ?, name = ?, job = ? WHERE id = ?",
+    "UPDATE Users SET imageUrl = ?, name = ?, job = ? WHERE id = ?",
     [updateCustomer.imageUrl, updateCustomer.name, updateCustomer.job, id],
     (err, res) => {
       if (err) {
-        console.log("error: ", err);
+        console.log("Error appeared: ", err);
         result(null, err);
         return;
       }
 
       if (res.affectedRows == 0) {
-        // not found customer with the id
-        result({ kind: "not_found" }, null);
+        result({ kind: "not_found" }, null); // The user was not found
         return;
       }
 
-      console.log("updated customer: ", { id: id, ...updateCustomer });
-      result(null, { id: id, ...updateCustomer, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` });
+      console.log("The new profil informations : ", { id: id, ...updateCustomer });
+      result(null, { id: id, ...updateCustomer });
     }
   );
 };
 
-/* Get user saved in the db */
-Customer.getUser = (id, result) => {
-  sql.query("SELECT * FROM Customers WHERE id = ?", [id], (err, res) => {
+/* Delete the user into db */
+Customer.remove = (userId, result) => {
+  sql.query("DELETE FROM Users WHERE id = ?", [userId], (err, res) => {
       if (err) {
-          console.log("error: ", err);
+          console.log("Error appeared: ", err);
           result(null, err);
           return;
       }
 
-      console.log("Customer: ", res);
+      if (res.affectedRows == 0) {
+          result({ kind: "not_found" }, null); // The user was already deleted
+          return;
+      }
+
+      console.log("The user was deleted: ", userId);
       result(null, res);
+  });
+};
+
+/* To get all the users profil for admin */
+Customer.getAll = (result) => {
+  sql.query("SELECT * FROM Users", (err, res) => {
+    if (err) {
+        console.log("Error appeared: ", err);
+        result(null, err);
+        return;
+    }
+
+    console.log("All Users: ", res);
+    result(null, res);
   });
 };
 
