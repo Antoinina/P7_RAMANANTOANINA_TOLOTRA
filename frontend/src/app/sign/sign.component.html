@@ -1,44 +1,50 @@
-<section class="auth-container row flex-column justify-content-between align-items-center text-white">
-    <header class="text-center">
-        <h1 class="h3">Inscrivez-vous</h1>
-        <img class="col-md-5" src="assets/logo/icon-left-font-monochrome-white.png" alt="Logo de Groupomania">
-    </header>
-    <form class="needs-validation" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="firstname" class="sr-only">First Name</label>
-                <input type="text" id="firstName" class="form-control" placeholder="Prénom" name="firstName" ngModel required
-                    autofocus>
+<div class="card">
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Votre nom</label>
+                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Votre nom est obligatoire</div>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="lastname" class="sr-only">Last name</label>
-                <input type="text" id="lastName" class="form-control" placeholder="Nom" name="lastName" ngModel required>
+            <div class="form-group">
+                <label for="jobTitle">Votre poste</label>
+                <input type="text" formControlName="jobTitle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.jobTitle.errors }" />
+                <div *ngIf="submitted && f.jobTitle.errors" class="invalid-feedback">
+                    <div *ngIf="f.jobTitle.errors.required">Votre poste est obligatoire</div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="job" class="sr-only">Post</label>
-            <input type="text" id="job" class="form-control" placeholder="Poste" name="job" ngModel required>
-        </div>
-        <div class="form-group">
-            <label for="email" class="sr-only">Email address</label>
-            <input type="email" id="email" class="form-control" placeholder="Adresse email" name="email" ngModel required>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Mot de passe"
-                  name="password" ngModel  required>
+            <!--<div class="form-group">
+                <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)" formControlName="imageUrl" id="imageUrl">
+                <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
+              </div>-->
+            <div class="form-group">
+                <label for="email">Votre email</label>
+                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Votre email est obligatoire</div>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="pwdConfirmation" class="sr-only">Password confirmation</label>
-                <input type="password" id="pwdConfirmation" class="form-control"
-                    placeholder="Confirmer votre mot de passe" name="pwdConfirmation" ngModel required>
+            <div class="form-group">
+                <label for="password">Votre mot de passe</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Mot de passe est obligatoire</div>
+                    <div *ngIf="f.password.errors.minlength">Votre mot de passe doit contenir 6 caractères minimum</div>
+                </div>
             </div>
-        </div>
-        <button class="btn btn-lg btn-dark btn-block text-uppercase" type="submit" [disabled]="f.invalid">Confirmer</button>
-        <a class="text-muted" routerLink="">Retour</a>
-    </form>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    S'enregistrer
+                </button>
+                <a routerLink="" class="btn btn-link">Retour</a>
+            </div>
+        </form>
+    </div>
     <footer class="text-muted">
         <p>© CONNECT-E - 2020 - Tous droits réservés</p>
     </footer>
-</section>
+</div>

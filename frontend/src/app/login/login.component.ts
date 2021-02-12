@@ -1,20 +1,57 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from "@angular/forms";
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
-})
+import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
+
+@Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
+    form: FormGroup;
+    loading = false;
+    submitted = false;
 
-  constructor() { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private accountService: AuthService,
+        private alertService: AlertService
+    ) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            email: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
 
-  onSubmit(form:NgForm){
-    console.log(form.value);
-  }
+    // convenience getter for easy access to form fields
+    get f() { return this.form.controls; }
 
+    onSubmit() {
+        this.submitted = true;
+
+        // reset alerts on submit
+        this.alertService.clear();
+
+        // stop here if form is invalid
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.loading = true;
+        this.accountService.login(this.f.email.value, this.f.password.value)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    this.router.navigateByUrl('/home');
+                },
+                error: error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                }
+            });
+    }
 }

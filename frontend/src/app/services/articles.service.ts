@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Article } from '../models/Article.model';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+import { Article } from '../models/Article.model';
 
 const baseUrl = 'http://localhost:3000/api/articles';
 
@@ -13,19 +14,30 @@ export class ArticleService {
 
     constructor(private http: HttpClient) {}
 
-    getAll(){
-        this.http.get<Article[]>(baseUrl);
+    /*getAll(){
+        this.http
+        .get(baseUrl)
+        .subscribe(
+            (articles: Article[]) => {
+                this.articles$.next(articles);
+                console.log("Récupération réussie");
+            },
+            (error) => {
+                this.articles$.next([]);
+                console.log("Erreur survenue" + error);
+            }
+        )
+
+    }*/
+    getAll() {
+        return this.http.get<Article[]>('http://localhost:3000/api/articles');
     }
 
-    createArticle(data: any): Observable<any>{
-        return this.http.post(baseUrl, data);
+    publishArticle(data: Article){
+        return this.http.post('http://localhost:3000/api/articles', data);
     }
 
-    updateArticle(id: any, data: any): Observable<any>{
-        return this.http.put(`${baseUrl}/${id}`, data);
-    }
-
-    deleteArticle(id: any): Observable<any>{
-        return this.http.delete(`${baseUrl}/${id}`);
+    delete(id: string) {
+        return this.http.delete(`http://localhost:3000/api/articles/${id}`)
     }
 }

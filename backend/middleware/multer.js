@@ -6,6 +6,8 @@ const MIME_TYPES= {
     'image/png': 'png'
 };
 
+/* Resize function to do */
+
 // Save the file which is upload
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {

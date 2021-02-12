@@ -2,10 +2,9 @@ const sql = require('./db.js');
 
 const Article = function (article) {
     this.publication = article.publication;
-    this.likes = article.likes;
-    this.comments = article.comments;
+    this.likes = 0;
+    this.comments = 0;
     this.date_published = new Date();
-    this.id = article.id;
 };
 
 /* Save article published in the db */
@@ -24,7 +23,7 @@ Article.create = (newArticle, result) => {
 
 /* To get all articles saved in the db */
 Article.getAll = (result) => {
-    sql.query("SELECT * FROM Articles", (err, res) => {
+    sql.query("SELECT a.*, u.name, u.jobTitle, u.imageUrl FROM Articles AS a JOIN Users AS u ON a.id=u.userId", (err, res) => {
         if (err) {
             console.log("Error appeared: ", err);
             result(null, err);

@@ -3,6 +3,7 @@ const sql = require('./db.js');
 
 /* The user constructor */
 const Customer = function(customer){
+    this.userId = customer.id;
     this.email = customer.email;
     this.password = customer.password;
     this.imageUrl = customer.imageUrl;
@@ -19,14 +20,14 @@ Customer.create = (newCustomer, result) => {
         return;
       }
   
-      console.log("Successful customer creation: ", { id: res.insertId, ...newCustomer });
-      result(null, { id: res.insertId, ...newCustomer });
+      console.log("Successful customer creation: ", { userId: res.insertId, ...newCustomer });
+      result(null, { userId: res.insertId, ...newCustomer });
     });
 };
 
 /* To access the user profil saved in the db */
-Customer.findById = (userId, result) => {
-  sql.query("SELECT * FROM Users WHERE id = ?", [userId], (err, res) => {
+Customer.findById = (id, result) => {
+  sql.query("SELECT * FROM Users WHERE userId = ?", [id], (err, res) => {
       if (err) {
           console.log("Error appeared: ", err);
           result(null, err);
@@ -41,8 +42,8 @@ Customer.findById = (userId, result) => {
 /* To modify the user profil */
 Customer.updateById = (id, updateCustomer, result) => {
   sql.query(
-    "UPDATE Users SET imageUrl = ?, name = ?, job = ? WHERE id = ?",
-    [updateCustomer.imageUrl, updateCustomer.name, updateCustomer.job, id],
+    "UPDATE Users SET email = ?, password = ?, imageUrl = ?, name = ?, jobTitle = ? WHERE userId = ?",
+    [updateCustomer.email, updateCustomer.password, updateCustomer.imageUrl, updateCustomer.name, updateCustomer.jobTitle, id],
     (err, res) => {
       if (err) {
         console.log("Error appeared: ", err);
@@ -55,15 +56,15 @@ Customer.updateById = (id, updateCustomer, result) => {
         return;
       }
 
-      console.log("The new profil informations : ", { id: id, ...updateCustomer });
-      result(null, { id: id, ...updateCustomer });
+      console.log("The new profil informations : ", { userId: id, ...updateCustomer });
+      result(null, { userId: id, ...updateCustomer });
     }
   );
 };
 
 /* Delete the user into db */
-Customer.remove = (userId, result) => {
-  sql.query("DELETE FROM Users WHERE id = ?", [userId], (err, res) => {
+Customer.remove = (id, result) => {
+  sql.query("DELETE FROM Users WHERE userId = ?", [id], (err, res) => {
       if (err) {
           console.log("Error appeared: ", err);
           result(null, err);
@@ -75,7 +76,7 @@ Customer.remove = (userId, result) => {
           return;
       }
 
-      console.log("The user was deleted: ", userId);
+      console.log("The user was deleted: ", id);
       result(null, res);
   });
 };

@@ -1,66 +1,56 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { ArticleFormComponent } from './article-form/article-form.component';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { RouterModule } from '@angular/router';
-import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignComponent } from './sign/sign.component';
 import { ArticlesComponent } from './articles/articles.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { AccountComponent } from './account/account.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { ConditionPageComponent } from './condition-page/condition-page.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
-import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { ArticleFormComponent } from './article-form/article-form.component';
-import { HttpClientModule } from '@angular/common/http';
-
-const appRoutes: Routes = [
-  { path: 'home', component: HomePageComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'sign', component: SignComponent },
-  { path: 'articles', component: ArticlesComponent },
-  { path: 'profile', component: AccountComponent },
-  { path: 'auth', component: AuthPageComponent },
-  { path: 'condition', component: ConditionPageComponent },
-  { path :'publication', component : ArticleFormComponent },
-  { path: '', component: AuthPageComponent },
-  { path: 'not-found', component: FourOhFourComponent },
-  { path: '**', redirectTo: '/not-found'} /* path wildcard show an inexistant route, and redirect the user to a 404 page */
-];
+import { ArticleService } from './services/articles.service';
+import { AlertComponent } from './alert/alert.component';
+import { JwtInterceptor } from './services/jwt.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthPageComponent,
-    HomePageComponent,
-    LoginComponent,
-    SignComponent,
-    ArticlesComponent,
     NavbarComponent,
-    AccountComponent,
-    HeaderComponent,
     FooterComponent,
+    HeaderComponent,
     ConditionPageComponent,
+    AccountComponent,
+    ArticlesComponent,
+    SignComponent,
+    LoginComponent,
+    HomePageComponent,
+    AuthPageComponent,
+    ArticleFormComponent,
     FourOhFourComponent,
-    ArticleFormComponent
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    ArticleService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

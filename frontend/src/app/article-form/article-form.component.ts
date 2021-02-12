@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+
 import { Article } from '../models/Article.model';
 import { ArticleService } from '../services/articles.service';
+import { AlertService } from '../services/alert.service';
+import { User } from '../models/User.model';
 
 @Component({
   selector: 'app-article-form',
@@ -10,36 +15,49 @@ import { ArticleService } from '../services/articles.service';
 })
 export class ArticleFormComponent implements OnInit {
 
-  article: Article = {
-    publication: '',
-    likes: 0,
-    comments: 0,
-    date_published : Date()
-  };
+  articleForm: FormGroup;
+  submitted = false;
+  loading = false;
+  article: Article;
+  errorMsg: string;
+  user: User;
 
-  constructor(private articleService: ArticleService) { }
+  constructor(private articles: ArticleService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
+    this.articleForm = this.formBuilder.group({
+      publication: ['', Validators.required]
+    });
+
   }
 
-  onSubmit(form:NgForm){
-    console.log(form.value);
-  }
+  get f() { return this.articleForm.controls; }
 
-  saveArticle(): void{
-    const data = {
-      publication: this.article.publication,
-      likes: this.article.likes,
-      comments: this.article.comments,
-      date_published: this.article.date_published
-    };
+  onSubmit(){
+    this.submitted = true;
 
-    this.articleService.createArticle(data)
-      .subscribe(res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
+    // stop here if form is invalid
+    if (this.articleForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.articles.publishArticle(this.articleForm.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+            this.alertService.success('Publication réussie', { keepAfterRouteChange: true });
+            this.router.navigate(['/articles'], { relativeTo: this.route });
+        },
+        error: error => {
+            this.alertService.error(error);
+            this.loading = false;
+        }
       });
   }
 

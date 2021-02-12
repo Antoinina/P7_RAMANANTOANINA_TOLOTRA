@@ -1,0 +1,3 @@
+select a.* , u.name, u.jobTitle, u.imageUrl from Articles a
+JOIN Users u ON a.UserId = u.UserId
+

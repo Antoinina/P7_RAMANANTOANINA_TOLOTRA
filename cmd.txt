@@ -1,0 +1,26 @@
+Create db : CREATE DATABASE publications CHARACTER SET 'utf8';
+Create table users : 
+CREATE TABLE Users (
+     userId INT UNSIGNED NOT NULL AUTO_INCREMENT,
+     email VARCHAR(50) NOT NULL,
+     password VARCHAR(255) NOT NULL,
+     imageUrl VARCHAR(255),
+     name VARCHAR(100) NOT NULL,
+     jobTitle VARCHAR(50) NOT NULL,
+     PRIMARY KEY(userId)
+     )
+     ENGINE=INNODB;
+
+Create table articles : 
+CREATE TABLE Articles (
+     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+     publication TEXT NOT NULL,
+     likes INT UNSIGNED,
+     comments INT UNSIGNED,
+     date_published DATETIME,
+     usercomments TEXT,
+     CONSTRAINT fk_id_userId
+     FOREIGN KEY (id)
+     REFERENCES Users(userId)
+     )
+    ENGINE=INNODB;

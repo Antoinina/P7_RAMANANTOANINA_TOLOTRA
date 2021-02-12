@@ -7,6 +7,7 @@ exports.create = (req, res) => {
     }
 
     const article = new Article({
+        id: this.id,
         publication: req.body.publication,
         likes: req.body.likes,
         comments: req.body.comments,

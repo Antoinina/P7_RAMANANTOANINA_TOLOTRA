@@ -1,20 +1,73 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
-@Component({
-  selector: 'app-sign',
-  templateUrl: './sign.component.html',
-  styleUrls: ['./sign.component.scss']
-})
+import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
+
+@Component({ templateUrl: 'sign.component.html' })
 export class SignComponent implements OnInit {
+    form: FormGroup;
+    loading = false;
+    submitted = false;
+    imagePreview: string;
 
-  constructor() { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private accountService: AuthService,
+        private alertService: AlertService
+    ) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            name: ['', Validators.required],
+            jobTitle: ['', Validators.required],
+            email: ['', Validators.required],
+            imageUrl: [''],
+            password: ['', [Validators.required, Validators.minLength(6)]]
+        });
+    }
 
-  onSubmit(form:NgForm){
-    console.log(form.value);
-  }
+    // convenience getter for easy access to form fields
+    get f() { return this.form.controls; }
 
+    onFileAdded(event: Event) {
+        const file = (event.target as HTMLInputElement).files[0];
+        this.form.get('imageUrl').setValue(file);
+        this.form.updateValueAndValidity();
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreview = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+
+    onSubmit() {
+        this.submitted = true;
+
+        // reset alerts on submit
+        this.alertService.clear();
+
+        // stop here if form is invalid
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.loading = true;
+        this.accountService.register(this.form.value)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+                    this.router.navigate(['/home'], { relativeTo: this.route });
+                },
+                error: error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                }
+            });
+    }
 }

@@ -10,11 +10,11 @@
             <h3 class="h6 text-muted">{{user.job}}</h3>
         </div>
     </div>
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <form [formGroup]="articleForm">
         <div class="form-group">
             <label for="publication" class="sr-only">Publication</label>
-            <textarea id="publication" name="publication" type="text" class="form-control" placeholder="Partage avec nous ce que tu veux {{user.name}}" [(ngModel)]="article.publication" required></textarea>
-            <button type="submit" (click)="saveArticle" routerLink="/articles" class="btn btn-dark col-12" [disabled]="f.invalid">Publier</button>
+            <textarea id="publication" name="publication" type="text" class="form-control" placeholder="Partage avec nous ce que tu veux {{user.name}}" formControlName="publication" required></textarea>
+            <button type="submit" (click)="onSubmit()" class="btn btn-dark col-12" [disabled]="articleForm.invalid">Publier</button>
         </div>
     </form>
 </section>
