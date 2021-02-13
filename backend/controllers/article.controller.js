@@ -7,11 +7,10 @@ exports.create = (req, res) => {
     }
 
     const article = new Article({
-        id: this.id,
         publication: req.body.publication,
         likes: req.body.likes,
         comments: req.body.comments,
-        date: req.body.date_published
+        date: req.body.date_published,
     });
 
     Article.create(article, (err, data) => {

@@ -6,7 +6,12 @@ import { first } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 
-@Component({ templateUrl: 'sign.component.html' })
+@Component({ 
+    selector: 'app-sign',
+    templateUrl: 'sign.component.html',
+    styleUrls: ['./sign.component.scss'] 
+})
+
 export class SignComponent implements OnInit {
     form: FormGroup;
     loading = false;

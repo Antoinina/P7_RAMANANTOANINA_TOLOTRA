@@ -5,12 +5,12 @@ const articleCtrl = require('../controllers/article.controller');
 const auth = require('../middleware/auth');
 const { route } = require('./auth');
 
-router.post('/articles', auth, articleCtrl.create); // To publish an article
+router.post('/articles',  articleCtrl.create); // To publish an article
 
-router.get('/articles', auth, articleCtrl.findAll); // To see all articles
+router.get('/articles',  articleCtrl.findAll); // To see all articles
 
-router.put('/articles/:id', auth, articleCtrl.udpateOne); // To modify an article
+router.put('/articles/:id',  articleCtrl.udpateOne); // To modify an article
 
-router.delete('/articles/:id', auth, articleCtrl.delete); // To delete an article
+router.delete('/articles/:id',  articleCtrl.delete); // To delete an article
 
 module.exports = router;

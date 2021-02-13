@@ -1,6 +1,8 @@
-<div class="card">
-    <h4 class="card-header">Register</h4>
-    <div class="card-body">
+<section class="auth-container row flex-column justify-content-between align-items-center text-white">
+    <header class="text-center">
+        <h2 class="h3">Connectez-vous</h2>
+        <img class="col-md-5" src="assets/logo/icon-left-font-monochrome-white.png" alt="Logo de Groupomania">
+    </header>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="name">Votre nom</label>
@@ -16,10 +18,10 @@
                     <div *ngIf="f.jobTitle.errors.required">Votre poste est obligatoire</div>
                 </div>
             </div>
-            <!--<div class="form-group">
+            <div class="form-group">
                 <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)" formControlName="imageUrl" id="imageUrl">
                 <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
-              </div>-->
+              </div>
             <div class="form-group">
                 <label for="email">Votre email</label>
                 <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
@@ -36,15 +38,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <button [disabled]="loading" class="btn btn-primary">
+                <button [disabled]="loading" class="btn btn-dark">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     S'enregistrer
                 </button>
-                <a routerLink="" class="btn btn-link">Retour</a>
+                <a routerLink="" class="btn btn-link text-muted">Retour</a>
             </div>
         </form>
-    </div>
     <footer class="text-muted">
         <p>© CONNECT-E - 2020 - Tous droits réservés</p>
     </footer>
-</div>
+</section>

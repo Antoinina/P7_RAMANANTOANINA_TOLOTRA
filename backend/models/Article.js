@@ -9,7 +9,8 @@ const Article = function (article) {
 
 /* Save article published in the db */
 Article.create = (newArticle, result) => {
-    sql.query("INSERT INTO Articles SET ?", newArticle, (err, res) => {
+    delete newArticle.id;
+    sql.query("INSERT INTO Articles SET ? ", newArticle, (err, res) => {
         if (err) {
             console.log("Error appeared: ", err);
             result(err, null);

@@ -85,8 +85,8 @@ exports.signup = (req, res) => {
                 email: req.body.email,
                 password: hash,
                 name: req.body.name,
-                jobTitle: req.body.jobTitle
-                /*imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`*/
+                jobTitle: req.body.jobTitle,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             });
 
             Customer.create(user, (err, data) => {
