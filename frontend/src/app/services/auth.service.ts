@@ -27,21 +27,28 @@ export class AuthService {
         return this.http.post<User>('http://localhost:3000/api/auth/login', { email, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('userId', JSON.stringify(user['userId']));
                 localStorage.setItem('user', JSON.stringify(user));
                 this.userSubject.next(user);
                 return user;
             }));
     }
 
+
     register(user: User) {
-        return this.http.post('http://localhost:3000/api/auth/signup', user);
+        return this.http.post('http://localhost:3000/api/auth/signup', user)
+        .pipe(map(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(user));
+            return user;
+        }));
     }
 
     getAll() {
         return this.http.get<User[]>('http://localhost:3000/api/auth/users');
     }
 
-    getById(id: number) {
+    getById(id: any) {
         return this.http.get<User>(`http://localhost:3000/api/auth/profil/${id}`);
     }
 

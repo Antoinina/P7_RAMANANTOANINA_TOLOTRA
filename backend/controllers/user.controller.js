@@ -57,12 +57,14 @@ exports.login =  (req, res) => {
                 const pwdCompared = await bcrypt.compare(password, result[0].password);
 
                 if (pwdCompared) {
-                    res.status(200).send({
+                    res.status(200).send(
+                        {
                         token: jwt.sign( // Encode a new token to permit to the user to connect just once during 24h
-                            { userId: result[0].id },
+                            { userId: result[0].userId },
                             'dhegaifze56686deallj',
                             { expiresIn: '24h' }
                         ),
+                        userId : result[0].userId,
                         message: "Connexion réussie"
                     });
                 } else {
@@ -86,8 +88,9 @@ exports.signup = (req, res) => {
                 password: hash,
                 name: req.body.name,
                 jobTitle: req.body.jobTitle,
-                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.body.imageUrl}`
             });
+
 
             Customer.create(user, (err, data) => {
                 if (err)

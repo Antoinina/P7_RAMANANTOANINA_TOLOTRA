@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
   }
 
   seeProfile() {
-    this.accountService.getById(this.user.id);
-    this.router.navigate([`/profil/${this.user.id}`]);
+    const userId = localStorage.getItem('userId');
+    this.router.navigate([`/profil`, userId]);
   }
 
   logout() {

@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sign', component: SignComponent },
   { path: 'articles', component: ArticlesComponent },
-  { path: 'profil', component: AccountComponent },
+  { path: 'profil/:userId', component: AccountComponent },
   { path: 'auth', component: AuthPageComponent },
   { path: 'condition', component: ConditionPageComponent },
   { path :'publication', component : ArticleFormComponent },

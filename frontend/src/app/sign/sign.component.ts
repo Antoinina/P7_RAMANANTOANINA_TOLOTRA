@@ -31,7 +31,7 @@ export class SignComponent implements OnInit {
             name: ['', Validators.required],
             jobTitle: ['', Validators.required],
             email: ['', Validators.required],
-            imageUrl: [''],
+            imageUrl: [null],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
     }
@@ -39,15 +39,10 @@ export class SignComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
 
-    onFileAdded(event: Event) {
+    onFileAdded(event: Event) {      
         const file = (event.target as HTMLInputElement).files[0];
-        this.form.get('imageUrl').setValue(file);
-        this.form.updateValueAndValidity();
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.imagePreview = reader.result as string;
-        };
-        reader.readAsDataURL(file);
+        this.form.value.imageUrl  = file.name;
+      
       }
 
     onSubmit() {
@@ -62,7 +57,7 @@ export class SignComponent implements OnInit {
         }
 
         this.loading = true;
-        this.accountService.register(this.form.value)
+        this.accountService.register(this.form.value, )
             .pipe(first())
             .subscribe({
                 next: () => {

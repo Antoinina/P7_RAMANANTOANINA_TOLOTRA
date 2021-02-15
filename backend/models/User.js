@@ -3,7 +3,7 @@ const sql = require('./db.js');
 
 /* The user constructor */
 const Customer = function(customer){
-    this.userId = customer.id;
+    this.userId = customer.userId;
     this.email = customer.email;
     this.password = customer.password;
     this.imageUrl = customer.imageUrl;
@@ -35,6 +35,7 @@ Customer.findById = (id, result) => {
       }
 
       console.log("Customer selected: ", res);
+      debugger;
       result(null, res);
   });
 };
