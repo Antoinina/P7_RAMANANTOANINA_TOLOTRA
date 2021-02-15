@@ -11,7 +11,7 @@ const MIME_TYPES= {
 // Save the file which is upload
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, 'images')
+        callback(null, './images')
     },
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_'); //Delete spaces in the filename
@@ -20,4 +20,4 @@ const storage = multer.diskStorage({
     }
 });
 
-module.exports = multer({ storage }).single('image'); // Export the multer and indicate that is a single file type img
+module.exports = multer({ storage }).single('imageUrl'); // Export the multer and indicate that is a single file type img

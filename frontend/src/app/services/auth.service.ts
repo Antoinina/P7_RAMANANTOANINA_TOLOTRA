@@ -35,11 +35,12 @@ export class AuthService {
     }
 
 
-    register(user: User) {
+    register(user) {
         return this.http.post('http://localhost:3000/api/auth/signup', user)
         .pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
+            localStorage.setItem('userId', JSON.stringify(user['userId']));
             return user;
         }));
     }
@@ -48,7 +49,7 @@ export class AuthService {
         return this.http.get<User[]>('http://localhost:3000/api/auth/users');
     }
 
-    getById(id: any) {
+    getUserById(id: any) {
         return this.http.get<User>(`http://localhost:3000/api/auth/profil/${id}`);
     }
 

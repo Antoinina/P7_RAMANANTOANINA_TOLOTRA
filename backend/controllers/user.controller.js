@@ -80,6 +80,7 @@ exports.login =  (req, res) => {
 /* To sign */
 exports.signup = (req, res) => {
 
+    console.log(req.file);
     // Protect the password 10 times
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -88,10 +89,10 @@ exports.signup = (req, res) => {
                 password: hash,
                 name: req.body.name,
                 jobTitle: req.body.jobTitle,
-                //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.body.imageUrl}`
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             });
 
-
+        
             Customer.create(user, (err, data) => {
                 if (err)
                     res.status(500).send({ message: "Une erreur s'est produite lors de la création du compte !" });
@@ -99,6 +100,7 @@ exports.signup = (req, res) => {
                     res.send(data);
                 }
             });
+        
         })
         .catch(error => res.status(500).send({ error }));
 };

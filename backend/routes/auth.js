@@ -4,9 +4,10 @@ const { body } = require('express-validator'); // To validate a conform email an
 
 const userCtrl = require('../controllers/user.controller');
 const auth = require('../middleware/auth');
-const multer = require('../middleware/multer');
+const multer = require('../middleware/multer-config');
 
-router.post('/signup', [body('email').isEmail(), body('password').isLength({ min: 6} ).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{8,}$/)], multer, userCtrl.signup); // Route when the customer signing with a content control
+router.post('/signup', multer, userCtrl.signup); // Route when the customer signing with a content control
+//router.post('/signup', [body('email').isEmail(), body('password').isLength({ min: 6} ).matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{8,}$/)], multer, userCtrl.signup); // Route when the customer signing with a content control
 
 router.post('/login', userCtrl.login); // To log the session
 
