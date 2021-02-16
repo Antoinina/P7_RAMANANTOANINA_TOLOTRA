@@ -5,4 +5,5 @@ export class Article {
     comments? : number;
     usercomments? : string[];
     date_published? : string;
+    userId : number;
 }

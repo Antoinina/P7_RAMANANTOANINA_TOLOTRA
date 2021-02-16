@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Article } from '../models/Article.model';
+import { AuthService } from './auth.service';
 
 const baseUrl = 'http://localhost:3000/api/articles';
 
@@ -12,7 +13,7 @@ const baseUrl = 'http://localhost:3000/api/articles';
 
 export class ArticleService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private authService: AuthService) {}
 
     /*getAll(){
         this.http
@@ -34,10 +35,17 @@ export class ArticleService {
     }
 
     publishArticle(data: Article){
-        return this.http.post('http://localhost:3000/api/articles', data);
+        const article = { ...data, userId: this.authService.getAuthentifiedUser().userId };
+        console.log('article', article);
+        return this.http.post('http://localhost:3000/api/articles', article);
     }
 
-    delete(id: string) {
-        return this.http.delete(`http://localhost:3000/api/articles/${id}`)
+    delete(id: any) {
+        return this.http.delete(`http://localhost:3000/api/articles/${id}`);
+    }
+
+    userLike(id: any, data: Article){
+        const userId = this.authService.getAuthentifiedUser().userId;
+        return this.http.post(`http://localhost:3000/api/articles/${id}/like/${userId}`, data);
     }
 }

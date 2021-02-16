@@ -2,14 +2,14 @@ const sql = require('./db.js');
 
 const Article = function (article) {
     this.publication = article.publication;
-    this.likes = 0;
-    this.comments = 0;
+    this.likes = article.likes;
+    this.comments = article.comments;
     this.date_published = new Date();
+    this.userId = article.userId;
 };
 
 /* Save article published in the db */
 Article.create = (newArticle, result) => {
-    delete newArticle.id;
     sql.query("INSERT INTO Articles SET ? ", newArticle, (err, res) => {
         if (err) {
             console.log("Error appeared: ", err);
@@ -24,7 +24,7 @@ Article.create = (newArticle, result) => {
 
 /* To get all articles saved in the db */
 Article.getAll = (result) => {
-    sql.query("SELECT a.*, u.name, u.jobTitle, u.imageUrl FROM Articles AS a JOIN Users AS u ON a.id=u.userId", (err, res) => {
+    sql.query("SELECT a.*, u.name, u.jobTitle, u.imageUrl FROM Articles AS a JOIN Users AS u ON a.userId=u.userId", (err, res) => {
         if (err) {
             console.log("Error appeared: ", err);
             result(null, err);
@@ -39,8 +39,8 @@ Article.getAll = (result) => {
 /* To modify the publication or to update the likes and comments number */
 Article.updateById = (id, newArticle, result) => {
     sql.query(
-      "UPDATE Articles SET publication = ?, likes = ?, comments = ? WHERE id = ?",
-      [newArticle.publication, newArticle.likes, newArticle.comments, id],
+      "UPDATE Articles SET publication = ?, comments = ? WHERE id = ?",
+      [newArticle.publication, newArticle.comments, id],
       (err, res) => {
         if (err) {
           console.log("Error appeared: ", err);
@@ -50,6 +50,26 @@ Article.updateById = (id, newArticle, result) => {
   
         console.log("Updated article: ", { id: id, ...newArticle });
         result(null, { id: id, ...newArticle });
+      }
+    );
+  };
+
+  /* To modify the like */
+Article.updateLikeById =  (id, userId, updateLike, result) => {
+    sql.query(
+      "UPDATE Articles SET likes = ? WHERE id = ?",
+      [updateLike, id],
+      (err, res) => {
+        if (err) {
+          console.log("Error appeared: ", err);
+          result(null, err);
+          return;
+        }
+
+        sql.query("INSERT INTO Usersliked SET ?", {articleId: id, userId});
+  
+        console.log("Updated like: ", { id: id, updateLike });
+        result(null, { id: id, updateLike });
       }
     );
   };

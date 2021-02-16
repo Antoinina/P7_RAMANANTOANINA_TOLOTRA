@@ -64,7 +64,7 @@ exports.login =  (req, res) => {
                             'dhegaifze56686deallj',
                             { expiresIn: '24h' }
                         ),
-                        userId : result[0].userId,
+                        user : result[0],
                         message: "Connexion réussie"
                     });
                 } else {
@@ -80,7 +80,6 @@ exports.login =  (req, res) => {
 /* To sign */
 exports.signup = (req, res) => {
 
-    console.log(req.file);
     // Protect the password 10 times
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -97,7 +96,16 @@ exports.signup = (req, res) => {
                 if (err)
                     res.status(500).send({ message: "Une erreur s'est produite lors de la création du compte !" });
                 else {
-                    res.send(data);
+                    res.status(200).send({
+        
+                        token: jwt.sign( // Encode a new token to permit to the user to connect just once during 24h
+                            { userId: data.userId },
+                            'dhegaifze56686deallj',
+                            { expiresIn: '24h' }
+                        ),
+                        user : data,
+                        message: "Connexion réussie"
+                        });
                 }
             });
         

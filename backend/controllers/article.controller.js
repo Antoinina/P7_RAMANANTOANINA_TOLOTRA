@@ -8,9 +8,10 @@ exports.create = (req, res) => {
 
     const article = new Article({
         publication: req.body.publication,
-        likes: req.body.likes,
-        comments: req.body.comments,
+        likes: 0,
+        comments: 0,
         date: req.body.date_published,
+        userId : req.body.userId
     });
 
     Article.create(article, (err, data) => {
@@ -26,7 +27,7 @@ exports.udpateOne = (req, res) => {
         res.status(400).send({ message: "Impossible de modifier un article vide !"});
     }
 
-    Article.updateById(req.params.id, new Article(req.body), (err, data) => {
+    Article.updateById(req.params.id, new Article(req.body.publication), (err, data) => {
         if (err)
             res.status(500).send({ message: "Une erreur s'est produite lors de la modification !"});
         else res.send(data);
@@ -47,6 +48,15 @@ exports.findAll = (req, res) => {
     Article.getAll((err, data) => {
         if (err)
             res.status(500).send({ message: "Pas de publication à vous montrer !"});
+        else res.send(data);
+    });
+};
+
+/* To like publications */
+exports.updateLike = (req, res, next) => {
+    Article.updateLikeById(req.params.id, req.params.userId, req.body.likes, (err, data) => {
+        if (err)
+            res.status(500).send({ message: "Une erreur s'est produite lors de la modification !"});
         else res.send(data);
     });
 };

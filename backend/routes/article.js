@@ -11,6 +11,8 @@ router.get('/articles',  auth, articleCtrl.findAll); // To see all articles
 
 router.put('/articles/:id',  auth, articleCtrl.udpateOne); // To modify an article
 
+router.post('/articles/:id/like/:userId', articleCtrl.updateLike);
+
 router.delete('/articles/:id',  auth, articleCtrl.delete); // To delete an article
 
 module.exports = router;

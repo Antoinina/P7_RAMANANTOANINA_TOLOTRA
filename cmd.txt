@@ -19,8 +19,39 @@ CREATE TABLE Articles (
      comments INT UNSIGNED,
      date_published DATETIME,
      usercomments TEXT,
+     userId INT UNSIGNED,
      CONSTRAINT fk_id_userId
-     FOREIGN KEY (id)
+     FOREIGN KEY (userId)
      REFERENCES Users(userId)
+     )
+    ENGINE=INNODB;
+
+Create table comments
+CREATE TABLE Comments(
+     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+     comments TEXT NOT NULL,
+     date_published DATETIME,
+     articleId INT UNSIGNED,
+     userId INT UNSIGNED,
+     CONSTRAINT fk_userId_userId
+     FOREIGN KEY (userId)
+     REFERENCES Users(userId),
+     CONSTRAINT fk_id_articleId
+     FOREIGN KEY (articleId)
+     REFERENCES Articles(id)
+     )
+    ENGINE=INNODB;
+
+Create table userliked
+CREATE TABLE Usersliked(
+     id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+     articleId INT UNSIGNED,
+     userId INT UNSIGNED,
+     CONSTRAINT fk_articleId_userId
+     FOREIGN KEY (userId)
+     REFERENCES Users(userId),
+     CONSTRAINT fk_articleId_articleId
+     FOREIGN KEY (articleId)
+     REFERENCES Articles(id)
      )
     ENGINE=INNODB;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -8,9 +9,12 @@ import { NgForm } from '@angular/forms';
 })
 export class AccountComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
+
+  account;
 
   ngOnInit(): void {
+    this.account = this.authService.getAuthentifiedUser();
   }
 
   onSubmit(form:NgForm){
@@ -29,16 +33,6 @@ export class AccountComponent implements OnInit {
   changeProfil(){
     this.newProfil=true;
     return this.newProfil;
-  }
-
-  account = {
-    id: '_1',
-    imageUrl:'../assets/pdp.jpg',
-    firstname:'John',
-    lastname:'Doe',
-    job:'Chef de Projet IT',
-    email:'johndoe@groupomania.com',
-    password:'cocoJojo'
   }
     
 }

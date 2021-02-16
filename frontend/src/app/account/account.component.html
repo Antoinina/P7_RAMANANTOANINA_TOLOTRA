@@ -9,9 +9,8 @@
         </svg>
     </div>
     <div class="information-container">
-        <h5>Nom : <span class="text-uppercase">{{account.lastname}}</span></h5>
-        <h5>Prénom : {{account.firstname}}</h5>
-        <h5>Poste : {{account.job}}</h5>
+        <h5>Nom : <span class="text-uppercase">{{account.name}}</span></h5>
+        <h5>Poste : {{account.jobTitle}}</h5>
         <h5>E-mail : {{account.email}}</h5>
         <div class="row flex-column align-items-center btn-container">
             <input class="btn" type="button" (click)="changePwd()" value="Changer mon mot de passe">
@@ -26,14 +25,8 @@
             </form>
             <input class="btn" type="button" (click)="changeProfil()" value="Mettre à jour mes informations">
             <form *ngIf="newProfil"  class="row flex-column align-items-center" (ngSubmit)="onSubmit(f)" #f="ngForm">
-                <label for="lastname">Nom</label>
-                <input class="btn btn-light" type="text" id="lastname" name="lastname" ngModel required>
-                <label for="firstname">Prénom</label>
-                <input class="btn btn-light" type="text" id="firstname" name="firstname" ngModel required>
                 <label for="jobTitle">Poste de travail</label>
                 <input class="btn btn-light" type="text" id="jobTitle" name="jobTitle" ngModel required>
-                <label for="email">E-mail</label>
-                <input class="btn btn-light" type="email" id="email" name="email" ngModel required>
                 <button type="submit" class="btn btn-delete text-dark" [disabled]="f.invalid">Valider</button>
             </form>
         </div>   
