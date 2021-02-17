@@ -6,4 +6,5 @@ export class Article {
     usercomments? : string[];
     date_published? : string;
     userId : number;
+    likecountByTheUser?: number;
 }

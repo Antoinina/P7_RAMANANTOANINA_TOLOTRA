@@ -50,6 +50,7 @@ export class ArticlesComponent implements OnInit {
 userLike(id: any){
   const newArticle = this.articles.find(x => x.id === id);
   newArticle.likes++;
+  newArticle.likecountByTheUser++;
   this.articleService.userLike(id, newArticle)
     .pipe(first())
     .subscribe();

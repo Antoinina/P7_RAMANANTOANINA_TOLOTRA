@@ -11,33 +11,24 @@
         </svg>
     </div>
     <div class="information-container">
-        <h5>Nom : <span class="text-uppercase">{{account.name}}</span></h5>
+        <h5>Prénom et Nom : <span class="text-uppercase">{{account.name}}</span></h5>
         <h5>Poste : {{account.jobTitle}}</h5>
         <h5>E-mail : {{account.email}}</h5>
         <div class="row flex-column align-items-center btn-container">
             <input class="btn" type="button" (click)="changeProfil()" value="Mettre à jour mes informations">
             <form [formGroup]="form" (ngSubmit)="onSubmitProfil()" *ngIf="newProfil"
                 class="row flex-column align-items-center" #f="ngForm">
+                <!--<label for="name">Votre prénom et nom</label>
+                <input type="text" formControlName="name" class="btn btn-light" id="name" />-->
                 <label for="jobTitle">Poste de travail</label>
-                <input class="btn btn-light" type="text" id="jobTitle" name="jobTitle" ngModel required>
-                <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)"
+                <input class="btn btn-light" type="text" id="jobTitle" name="jobTitle" formControlName="jobTitle" ngModel required>
+                <input class="file-container" type="file" accept="image/*" #imageInput (change)="onFileAdded($event)"
                     formControlName="imageUrl" id="imageUrl">
                 <button type="submit" class="btn btn-delete text-dark">Valider</button>
-                <!--<input class="btn" type="button" (click)="changePwd()" value="Changer mon mot de passe">
-                <form *ngIf="newPwd" class="row flex-column align-items-center pwd-container" (ngSubmit)="onSubmit(p)"
-                    #p="ngForm">
-                    <label for="currentPwd">Mon mot de passe</label>
-                    <input class="btn btn-light" type="password" id="currentPwd" name="currentPwd" ngModel required>
-                    <label for="newPwd">Mon nouveau mot de passe</label>
-                    <input class="btn btn-light" type="password" id="newPwd" name="newPwd" ngModel required>
-                    <label for="confirmPwd">Confirmer mon mot de passe</label>
-                    <input class="btn btn-light" type="password" id="confirmPwd" name="confirmPwd" ngModel required>
-                    <button type="submit" class="btn btn-delete text-dark" [disabled]="p.invalid">Valider</button>
-                </form>-->
             </form>
         </div>
     </div>
-    <input class="btn btn-light btn-delete" type="button" value="Supprimer mon compte">
+    <input class="btn btn-light btn-delete" type="button" value="Supprimer mon compte" (click)="onDeleteProfil()">
 </section>
 <footer class="text-muted text-center">
     <p>© CONNECT-E - 2020 - Tous droits réservés</p>

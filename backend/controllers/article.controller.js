@@ -1,4 +1,5 @@
 const Article = require("../models/Article");
+const jwt = require('jsonwebtoken');
 
 /* To publish an article */
 exports.create = (req, res) => {
@@ -45,7 +46,10 @@ exports.delete = (req, res) => {
 
 /* To show all articles in the feed */
 exports.findAll = (req, res) => {
-    Article.getAll((err, data) => {
+    const token = req.headers.authorization.split(' ')[1]; // Extract the token form the header
+        const decodedToken = jwt.verify(token, 'dhegaifze56686deallj'); // Verify if the user id is the same as in the token
+        const userId = decodedToken.userId;
+    Article.getAll(userId,(err, data) => {
         if (err)
             res.status(500).send({ message: "Pas de publication à vous montrer !"});
         else res.send(data);

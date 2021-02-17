@@ -2,7 +2,6 @@ const Customer = require("../models/User");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const connection = require("../models/db");
-const fs = require('fs');
 
 /* To update the profil informations */
 exports.updateOne = (req, res) => {
@@ -10,7 +9,14 @@ exports.updateOne = (req, res) => {
         res.status(400).send({ message: "Impossible de modifier un article vide !" });
     }
 
-    Customer.updateById(new Customer(req.body), (err, data) => {
+    const user = new Customer({
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.name,
+        jobTitle: req.body.jobTitle,
+        imageUrl: req.file && req.file.filename ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`:undefined
+    });
+    Customer.updateById(req.params.userId,user, (err, data) => {
         if (err)
             res.status(500).send({ message: "Une erreur s'est produite lors de la modification !" });
         else res.send(data);
@@ -28,14 +34,11 @@ exports.findOne = (req, res) => {
 
 /* To delete profil */
 exports.delete = (req, res) => {
-    const filename = user.imageUrl.split('/images/')[1]; //To pick the name of the image file
-    fs.unlink(`images/${filename}`, () => { //Delete the image file
         Customer.remove(req.params.userId, (err, data) => {
             if (err)
                 res.status(404).send({ message: "Votre profil n'existe pas !" });
             else res.send({ message: "Votre profil a bien été supprimé !" });
         });
-    })
 };
 
 /* To see all profils for admin */
