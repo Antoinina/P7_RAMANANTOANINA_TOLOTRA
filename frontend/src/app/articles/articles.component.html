@@ -12,10 +12,7 @@
     <input routerLink="/publication" type="text" class="btn btn-outline-dark col-10"
         placeholder="Partage avec nous ce que tu veux !">
 </section>
-<section *ngIf="articles.length < 0">
-    <p>Aucune publication n'est apparue !</p>
-</section>
-<section *ngIf="articles.length > 0" class="container-fluid">
+<section class="container-fluid">
     <div class="articles-container" *ngFor='let article of articles'>
         <div class="row align-items-start">
             <img *ngIf="pictureProfil" class="col-sm-1" [src]="article.imageUrl">
@@ -31,12 +28,14 @@
             </div>
             <div class="three-dots-container" *ngIf="currentUser.userId === article.userId">
                 <a class="nav-link" role="button" data-toggle="collapse" (click)="isShown=!isShown">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
+                        class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                        <path
+                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                     </svg>
                 </a>
                 <div class="collapse menu-dots" [ngClass]="{ 'show': isShown }">
-                    <a (click)="modifyArticle(article.id)" class="dropdown-item" >
+                    <a (click)="modifyArticle(article.id)" class="dropdown-item">
                         Modifier ma publication
                     </a>
                     <a (click)="deleteArticle(article.id)" class="dropdown-item">
@@ -48,9 +47,11 @@
         <p class="publication-container text-justify">{{article.publication}}</p>
         <div class="row justify-content-around icon-container">
             <div class="row justify-content-between align-items-center">
-                <button (click)="article.likecountByTheUser === 0 && userLike(article.id)" class="icon-like" [class.liked]="article.likecountByTheUser > 0">
+                <button (click)="article.likecountByTheUser === 0 && userLike(article.id)" class="icon-like"
+                    [class.liked]="article.likecountByTheUser > 0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16" [class.liked]="article.likecountByTheUser > 0">
+                        class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16"
+                        [class.liked]="article.likecountByTheUser > 0">
                         <path
                             d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.964.22.817.533 2.512.062 4.51a9.84 9.84 0 0 1 .443-.05c.713-.065 1.669-.072 2.516.21.518.173.994.68 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.162 3.162 0 0 1-.488.9c.054.153.076.313.076.465 0 .306-.089.626-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.826 4.826 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.616.849-.231 1.574-.786 2.132-1.41.56-.626.914-1.279 1.039-1.638.199-.575.356-1.54.428-2.59z" />
                     </svg>
@@ -68,6 +69,15 @@
                 <p class="number">{{article.comments}}</p>
             </div>
         </div>
+        <form [formGroup]="commentForm">
+            <div class="form-group">
+                <label for="comments" class="sr-only">Publication</label>
+                <textarea id="comments" name="comments" type="text" class="form-control"
+                    placeholder="Écris un commentaire" formControlName="comments"
+                    required></textarea>
+                <button type="submit"  class="btn btn-dark col-12" [disabled]="commentForm.invalid">Commenter</button>
+            </div>
+        </form>
     </div>
 </section>
 <app-footer></app-footer>

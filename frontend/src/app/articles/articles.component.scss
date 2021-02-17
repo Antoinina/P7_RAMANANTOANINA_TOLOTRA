@@ -29,8 +29,7 @@ h2,.number{
 }
 
 .icon-container{
-    box-shadow: 0px 3px 3px 0.5px rgba(9, 31, 67, 0.7);
-    padding-bottom:3em;
+    padding-bottom: 1em;
     .icon-like{
         margin-bottom: 2px;
     }
@@ -42,7 +41,9 @@ h2,.number{
 
 .articles-container{
     padding-top:1em;
-    padding-bottom:1em;
+    padding-bottom:3em;
+    margin-bottom: 2em;
+    box-shadow: 0px 3px 0px rgba(9, 31, 67, 0.7);
 }
 
 .three-dots-container, .menu-dots{
@@ -67,6 +68,14 @@ h2,.number{
     fill: #3a5c94;
 }
 
+form{
+    textarea{
+        &:focus{
+            box-shadow:inherit!important;
+            border-color: rgba(9, 31, 67, 0.7);
+        }
+    } 
+}
 
 
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ArticleService } from '../services/articles.service';
-import { Article } from '../models/Article.model';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../services/auth.service';
@@ -20,9 +20,12 @@ export class ArticlesComponent implements OnInit {
   pictureProfil=true;
   isShown = false;
 
+  commentForm: FormGroup;
+
   constructor(private articleService: ArticleService,
-                private authService: AuthService,
-              private router: Router) { }
+              private authService: AuthService,
+              private router: Router,
+              private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.account = this.authService.getAuthentifiedUser();
@@ -37,6 +40,10 @@ export class ArticlesComponent implements OnInit {
         .pipe(first())
         .subscribe(articles => this.articles = articles);
         this.currentUser = this.authService.getAuthentifiedUser();
+
+        this.commentForm = this.formBuilder.group({
+          comments: ['', Validators.required]
+        });
   }
 
   deleteArticle(id: any) {
