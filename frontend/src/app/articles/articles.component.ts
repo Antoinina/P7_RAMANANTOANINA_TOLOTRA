@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ArticleService } from '../services/articles.service';
 import { Article } from '../models/Article.model';
 import { first } from 'rxjs/operators';
+
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -15,14 +16,22 @@ export class ArticlesComponent implements OnInit {
 
   articles = null;
   currentUser;
-
+  account;
+  pictureProfil=true;
+  isShown = false;
 
   constructor(private articleService: ArticleService,
                 private authService: AuthService,
               private router: Router) { }
 
   ngOnInit(): void {
-
+    this.account = this.authService.getAuthentifiedUser();
+      //To show profile picture or avatar
+    if (this.account.imageurl !== null){
+      this.pictureProfil = true;
+    } else {
+      this.pictureProfil = false;
+    }
 
       this.articleService.getAll()
         .pipe(first())

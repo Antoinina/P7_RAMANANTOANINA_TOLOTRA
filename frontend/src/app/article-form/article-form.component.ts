@@ -7,6 +7,7 @@ import { Article } from '../models/Article.model';
 import { ArticleService } from '../services/articles.service';
 import { AlertService } from '../services/alert.service';
 import { User } from '../models/User.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-article-form',
@@ -26,13 +27,16 @@ export class ArticleFormComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private authService: AuthService) { }
+  account;
 
   ngOnInit(): void {
     this.articleForm = this.formBuilder.group({
       publication: ['', Validators.required]
     });
 
+    this.account = this.authService.getAuthentifiedUser();
   }
 
   get f() { return this.articleForm.controls; }

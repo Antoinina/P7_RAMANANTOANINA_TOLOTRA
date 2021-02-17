@@ -56,13 +56,13 @@ export class AuthService {
         return this.http.get<User>(`http://localhost:3000/api/auth/profil/${id}`);
     }
 
-    update(id, params) {
-        return this.http.put(`http://localhost:3000/api/auth/users/${id}`, params)
+    update(user,userId) {
+        return this.http.put(`http://localhost:3000/api/auth/profil/${userId}`, user)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
-                if (id == this.userValue.id) {
+                if (userId == this.userValue.id) {
                     // update local storage
-                    const user = { ...this.userValue, ...params };
+                    const user = { ...this.userValue };
                     localStorage.setItem('user', JSON.stringify(user));
 
                     // publish updated user to subscribers
@@ -72,11 +72,11 @@ export class AuthService {
             }));
     }
 
-    delete(id: string) {
-        return this.http.delete(`http://localhost:3000/api/auth/users/${id}`)
+    delete(userId: string) {
+        return this.http.delete(`http://localhost:3000/api/auth/users/${userId}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.id) {
+                if (userId == this.userValue.id) {
                     localStorage.removeItem('user');
                     this.userSubject.next(null);
                     this.router.navigate(['/login']);

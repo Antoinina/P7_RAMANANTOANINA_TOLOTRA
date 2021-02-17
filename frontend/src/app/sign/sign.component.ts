@@ -43,24 +43,6 @@ export class SignComponent implements OnInit {
         const file = (event.target as HTMLInputElement).files[0];
         this.form.get('imageUrl').setValue(file);  
     }
-    
-   /*
-   onFileAdded(event) {
-        const reader = new FileReader();
-     
-        if(event.target.files && event.target.files.length) {
-          const [file] = event.target.files;
-          reader.readAsDataURL(file);
-      
-          reader.onload = () => {
-            this.form.patchValue({
-              file: reader.result
-           });
-          
-          };
-        }
-    }
-    */
 
     onSubmit() {
         this.submitted = true;

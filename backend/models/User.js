@@ -43,8 +43,8 @@ Customer.findById = (id, result) => {
 /* To modify the user profil */
 Customer.updateById = (id, updateCustomer, result) => {
   sql.query(
-    "UPDATE Users SET email = ?, password = ?, imageUrl = ?, name = ?, jobTitle = ? WHERE userId = ?",
-    [updateCustomer.email, updateCustomer.password, updateCustomer.imageUrl, updateCustomer.name, updateCustomer.jobTitle, id],
+    "UPDATE Users SET password = ?, imageUrl = ?, jobTitle = ? WHERE userId = ?",
+    [updateCustomer.password, updateCustomer.imageUrl, updateCustomer.jobTitle, id],
     (err, res) => {
       if (err) {
         console.log("Error appeared: ", err);
@@ -58,7 +58,7 @@ Customer.updateById = (id, updateCustomer, result) => {
       }
 
       console.log("The new profil informations : ", { userId: id, ...updateCustomer });
-      result(null, { userId: id, ...updateCustomer });
+      result(null, { userId: userId, ...updateCustomer });
     }
   );
 };
