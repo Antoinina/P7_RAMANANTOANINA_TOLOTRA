@@ -4,9 +4,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { Article } from '../models/Article.model';
+import { User } from '../models/User.model';
+
 import { ArticleService } from '../services/articles.service';
 import { AlertService } from '../services/alert.service';
-import { User } from '../models/User.model';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -64,13 +65,5 @@ export class ArticleFormComponent implements OnInit {
         }
       });
   }
-
-  templateArticleForm = [
-    {
-      imageUrl: 'https://cdn.shopify.com/s/files/1/2430/8823/files/1.jpg?v=1588688635',
-      name: 'Jean R.',
-      job: 'Assistant Directeur'
-    }
-  ]
 
 }

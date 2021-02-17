@@ -17,6 +17,7 @@ const limiter = rateLimit({
 // Import the router in the app
 const articleRoutes = require('./routes/article');
 const userRoutes = require('./routes/auth');
+const commentRoutes = require('./routes/comment');
 
 connection.connect((err) => {
     if (err) throw err;
@@ -50,5 +51,6 @@ app.use(bodyParser.urlencoded({extended : true}));
 
 app.use('/api/auth', userRoutes);
 app.use('/api', articleRoutes);
+app.use('/api', commentRoutes);
 
 module.exports = app;

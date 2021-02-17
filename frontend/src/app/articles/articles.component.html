@@ -69,15 +69,7 @@
                 <p class="number">{{article.comments}}</p>
             </div>
         </div>
-        <form [formGroup]="commentForm">
-            <div class="form-group">
-                <label for="comments" class="sr-only">Publication</label>
-                <textarea id="comments" name="comments" type="text" class="form-control"
-                    placeholder="Écris un commentaire" formControlName="comments"
-                    required></textarea>
-                <button type="submit"  class="btn btn-dark col-12" [disabled]="commentForm.invalid">Commenter</button>
-            </div>
-        </form>
+        <app-comment></app-comment>
     </div>
 </section>
 <app-footer></app-footer>

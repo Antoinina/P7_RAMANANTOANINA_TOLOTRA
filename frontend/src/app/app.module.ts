@@ -21,6 +21,7 @@ import { ArticleService } from './services/articles.service';
 import { AlertComponent } from './alert/alert.component';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     AuthPageComponent,
     ArticleFormComponent,
     FourOhFourComponent,
-    AlertComponent
+    AlertComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

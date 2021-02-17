@@ -19,9 +19,9 @@
 }
 
 .publication-container{
-    margin-top:1em;
     padding-top:1em;
     padding-bottom:1em;
+
 }
 
 h2,.number{
@@ -66,15 +66,6 @@ h2,.number{
 
 .liked{
     fill: #3a5c94;
-}
-
-form{
-    textarea{
-        &:focus{
-            box-shadow:inherit!important;
-            border-color: rgba(9, 31, 67, 0.7);
-        }
-    } 
 }
 
 

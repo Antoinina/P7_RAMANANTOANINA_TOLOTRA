@@ -12,8 +12,9 @@ To secure and made a REST API
 To configure the db with mysql
 -MySQL : npm install mysql
 
-To save localy file
+To treat image file uploaded
 -Multer : npm install --save multer
+-Sharp : npm install multer-sharp-resizer
 
 To secure the authentification
 -JWT : npm install jsonwebtoken
