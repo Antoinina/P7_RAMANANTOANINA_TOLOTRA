@@ -24,7 +24,7 @@ Article.create = (newArticle, result) => {
 
 /* To get all articles saved in the db */
 Article.getAll = (userId, result) => {
-    sql.query(` SELECT a.*, u.name, u.jobTitle, u.imageUrl, (select count(*) from Usersliked inner join Articles on Usersliked.articleId = Articles.id where Usersliked.userId = ${userId} and Usersliked.articleId = a.id ) as likecountByTheUser FROM Articles AS  a JOIN Users AS u ON a.userId=u.userId ORDER BY a.date_published DESC`, (err, res) => {
+    sql.query(` SELECT a.*, u.name, u.jobTitle, u.imageUrl, (select count(*) from Usersliked inner join Articles on Usersliked.articleId = Articles.id where Usersliked.userId = ${userId} and Usersliked.articleId = a.id ) as likecountByTheUser, (select count(*) from Comments inner join Articles on Comments.articleId = Articles.id where Comments.articleId = a.id ) as commentsCount FROM Articles AS  a JOIN Users AS u ON a.userId=u.userId ORDER BY a.date_published DESC`, (err, res) => {
         if (err) {
             console.log("Error appeared: ", err);
             result(null, err);

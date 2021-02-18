@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -9,6 +9,8 @@ import { AlertService } from '../services/alert.service';
 
 import { User } from '../models/User.model';
 import { Comment } from '../models/Comment.model';
+import { I18nPluralPipe } from '@angular/common';
+import { Article } from '../models/Article.model';
 
 @Component({
   selector: 'app-comment',
@@ -27,6 +29,8 @@ export class CommentComponent implements OnInit {
   user: User;
   isShown = false;
 
+  @Input() article: Article;
+
   constructor(private authService: AuthService,
     private commentService: CommentService,
     private alertService: AlertService,
@@ -43,12 +47,11 @@ export class CommentComponent implements OnInit {
       comments: ['', Validators.required]
     });
 
-    /*setInterval(() => {
       // To show all comments for each article
-      this.commentService.getAll()
+      this.commentService.getByArticleId(this.article.id)
         .pipe(first())
         .subscribe(comments => this.comments = comments);
-    }, 3000);*/
+
 
   }
 
@@ -64,7 +67,7 @@ export class CommentComponent implements OnInit {
 
     this.loading = true;
 
-    this.commentService.publishComment(this.commentForm.value)
+    this.commentService.publishComment({...this.commentForm.value, articleId: this.article.id})
       .pipe(first())
       .subscribe({
         next: () => {

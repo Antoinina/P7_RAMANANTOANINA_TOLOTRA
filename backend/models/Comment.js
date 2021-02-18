@@ -35,6 +35,19 @@ Comment.getAll = (result) => {
     });
 };
 
+Comment.getByArticleId = (articleId, result) => {
+    sql.query(` SELECT c.*, u.name, u.imageUrl, u.jobTitle FROM Comments AS c JOIN Users AS u ON c.userId=u.userId  WHERE articleId = ${articleId} ORDER BY c.date_published DESC`, (err, res) => {
+        if (err) {
+            console.log("Error appeared: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log("All comments published: ", res);
+        result(null, res);
+    });
+};
+
 /* To modify the comments */
 Comment.updateById = (id, newComment, result) => {
     sql.query(

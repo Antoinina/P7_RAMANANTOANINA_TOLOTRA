@@ -8,6 +8,9 @@ router.post('/comments', auth, commentCtrl.create); // To publish an comments
 
 router.get('/comments',  auth, commentCtrl.findAll); // To see all comments
 
+router.get('/comments/article/:articleId',  auth, commentCtrl.findByArticleId); // To see all comments
+
+
 router.put('/comments/:id',  auth, commentCtrl.udpateOne); // To modify an comments
 
 router.delete('/comments/:id',  auth, commentCtrl.delete); // To delete an comments

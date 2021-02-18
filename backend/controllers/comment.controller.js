@@ -54,3 +54,15 @@ exports.findAll = (req, res) => {
         else res.send(data);
     });
 };
+
+exports.findByArticleId = (req, res) => {
+    const token = req.headers.authorization.split(' ')[1]; // Extract the token form the header
+        const decodedToken = jwt.verify(token, 'dhegaifze56686deallj'); // Verify if the user id is the same as in the token
+        const userId = decodedToken.userId;
+    Comment.getByArticleId(req.params.articleId, (err, data) => {
+        if (err)
+            res.status(500).send({ message: "Pas de publication à vous montrer !"});
+        else res.send(data);
+    });
+};
+

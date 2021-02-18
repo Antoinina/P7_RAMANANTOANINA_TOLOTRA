@@ -12,8 +12,8 @@ export class CommentService {
 
     constructor(private http: HttpClient, private authService: AuthService) {}
 
-    getAll() {
-        return this.http.get<Comment[]>('http://localhost:3000/api/comments');
+    getByArticleId(articleId) {
+        return this.http.get<Comment[]>(`http://localhost:3000/api/comments/article/${articleId}`);
     }
 
     publishComment(data: Comment){
