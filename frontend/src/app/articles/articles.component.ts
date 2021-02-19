@@ -32,7 +32,7 @@ export class ArticlesComponent implements OnInit {
     } else {
       this.pictureProfil = false;
     }
-    
+
     this.articleService.getAll()
       .pipe(first())
       .subscribe(articles => this.articles = articles);
@@ -54,10 +54,6 @@ export class ArticlesComponent implements OnInit {
     this.articleService.userLike(id, newArticle)
       .pipe(first())
       .subscribe();
-  }
-
-  modifyArticle(id: any) {
-
   }
 
 }

@@ -22,6 +22,7 @@
                 <input type="text" formControlName="name" class="btn btn-light" id="name" />-->
                 <label for="jobTitle">Poste de travail</label>
                 <input class="btn btn-light" type="text" id="jobTitle" name="jobTitle" formControlName="jobTitle" ngModel required>
+                <label for="imageUrl" class="sr-only">Importer une nouvelle image</label>
                 <input class="file-container" type="file" accept="image/*" #imageInput (change)="onFileAdded($event)"
                     formControlName="imageUrl" id="imageUrl">
                 <button type="submit" class="btn btn-delete text-dark">Valider</button>
