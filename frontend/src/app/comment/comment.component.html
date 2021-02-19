@@ -11,9 +11,6 @@
               </svg>
         </a>
         <div class="collapse menu-dots" [ngClass]="{ 'show': isShown }">
-            <a (click)="modifyComment(comment.id)" class="dropdown-item">
-                Modifier mon commentaire
-            </a>
             <a (click)="deleteComment(comment.id)" class="dropdown-item">
                 Supprimer mon commentaire
             </a>
@@ -25,7 +22,7 @@
         <label for="comments" class="sr-only">Commentaires</label>
         <textarea id="comments" name="comments" type="text" class="form-control" placeholder="Écris un commentaire"
             formControlName="comments" required></textarea>
-        <button type="submit" (click)="onSubmitComment()" class="btn btn-dark col-12"
+        <button type="button" (click)="onSubmitComment()" class="btn btn-dark col-12"
             [disabled]="commentForm.invalid">Commenter</button>
     </div>
 </form>

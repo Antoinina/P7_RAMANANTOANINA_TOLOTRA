@@ -2,6 +2,8 @@
 
 Welcome to the social app Groupomania
 
+The application use different technologies : Express for back and Angular for front
+
 To use this MVP, you need to install Node.js and to install some packages :
 To secure and made a REST API
 -Helmet : npm install helmet --save
@@ -14,7 +16,6 @@ To configure the db with mysql
 
 To treat image file uploaded
 -Multer : npm install --save multer
--Sharp : npm install multer-sharp-resizer
 
 To secure the authentification
 -JWT : npm install jsonwebtoken
@@ -33,3 +34,6 @@ And finally to run the app :
 -Access to the frontend folder --> in terminal start the server with "npm start"
 
 Go to https://localhost:4200
+
+To access with admin oiwer : email : admin@groupomania.fr 
+                             password : adminAdmin

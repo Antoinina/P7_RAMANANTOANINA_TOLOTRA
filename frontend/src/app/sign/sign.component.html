@@ -3,48 +3,53 @@
         <h2 class="h3">Connectez-vous</h2>
         <img class="col-md-5" src="assets/logo/icon-left-font-monochrome-white.png" alt="Logo de Groupomania">
     </header>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="name">Votre prénom et nom</label>
-                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                    <div *ngIf="f.name.errors.required">Votre nom est obligatoire</div>
-                </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Votre prénom et nom</label>
+            <input type="text" formControlName="name" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Votre nom est obligatoire</div>
             </div>
-            <div class="form-group">
-                <label for="jobTitle">Votre poste</label>
-                <input type="text" formControlName="jobTitle" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.jobTitle.errors }" />
-                <div *ngIf="submitted && f.jobTitle.errors" class="invalid-feedback">
-                    <div *ngIf="f.jobTitle.errors.required">Votre poste est obligatoire</div>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="jobTitle">Votre poste</label>
+            <input type="text" formControlName="jobTitle" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.jobTitle.errors }" />
+            <div *ngIf="submitted && f.jobTitle.errors" class="invalid-feedback">
+                <div *ngIf="f.jobTitle.errors.required">Votre poste est obligatoire</div>
             </div>
-            <div class="form-group">
-                <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)" formControlName="imageUrl" id="imageUrl">
-                <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
-              </div>
-            <div class="form-group">
-                <label for="email">Votre email</label>
-                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">Votre email est obligatoire</div>
-                </div>
+        </div>
+        <div class="form-group">
+            <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)" formControlName="imageUrl"
+                id="imageUrl">
+            <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
+        </div>
+        <div class="form-group">
+            <label for="email">Votre email</label>
+            <input type="text" formControlName="email" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Votre email est obligatoire</div>
             </div>
-            <div class="form-group">
-                <label for="password">Votre mot de passe</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Mot de passe est obligatoire</div>
-                    <div *ngIf="f.password.errors.minlength">Votre mot de passe doit contenir 6 caractères minimum</div>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Votre mot de passe</label>
+            <input type="password" formControlName="password" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Mot de passe est obligatoire</div>
+                <div *ngIf="f.password.errors.minlength">Votre mot de passe doit contenir 6 caractères minimum</div>
             </div>
-            <div class="form-group">
-                <button [disabled]="loading" class="btn btn-dark">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    S'enregistrer
-                </button>
-                <a routerLink="" class="btn btn-link text-muted">Retour</a>
-            </div>
-        </form>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-dark">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                S'enregistrer
+            </button>
+            <a routerLink="" class="btn btn-link text-muted">Retour</a>
+        </div>
+    </form>
     <footer class="text-muted">
         <p>© CONNECT-E - 2020 - Tous droits réservés</p>
     </footer>

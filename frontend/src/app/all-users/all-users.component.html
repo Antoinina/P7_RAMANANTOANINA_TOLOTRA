@@ -1,0 +1,22 @@
+<header class="fixed-top">
+    <app-header></app-header>
+    <app-navbar></app-navbar>
+</header>s
+<div class="admin-container text-center">
+    <h4>Bienvenue à toi Administrateur</h4>
+    <p>Cette page n'est accessible que par un administrateur.</p>
+    <div>
+        <p class="mb-1">Voici la liste de tous les utilisateurs :</p>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul class="container-fluid"  *ngIf="users">
+            <li *ngFor="let user of users" class="list-unstyled row justify-content-around align-items-center">
+                <div class="row flex-column align-items-center">
+                    <p>{{user.name}} </p>
+                    <p>{{user.jobTitle}}</p>
+                </div> 
+                <input class="btn btn-danger btn-delete" type="button" value="Supprimer le compte" (click)="onDeleteUser()">
+            </li>
+        </ul>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -17,7 +17,7 @@ router.put('/profil/:userId', auth, multer, userCtrl.updateOne); // Route to mod
 
 router.delete('/profil/:userId', auth, userCtrl.delete); // Route to delete profil
 
-router.get('/profils', userCtrl.findAll); // Route to see all profils
+router.get('/users', auth, userCtrl.findAll); // Route to see all profils
 
 
 module.exports = router;

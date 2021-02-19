@@ -89,8 +89,4 @@ export class CommentComponent implements OnInit {
       .subscribe(() => this.comments = this.comments.filter(x => x.id !== id));
   }
 
-  modifyComment(id: any) {
-
-  }
-
 }

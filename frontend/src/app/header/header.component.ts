@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../models/User.model';
 import { AuthService } from '../services/auth.service';
@@ -14,13 +13,16 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent implements OnInit {
   public user: User;
   isShown = false;
+  account;
 
   constructor(private router: Router,
               private accountService: AuthService,
               private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.account = this.accountService.getAuthentifiedUser();
   }
+
 
   seeProfile() {
     const userId = localStorage.getItem('userId');

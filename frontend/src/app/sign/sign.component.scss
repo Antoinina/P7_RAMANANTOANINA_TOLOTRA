@@ -2,7 +2,7 @@
     font-family: 'Calibri';
     background-color: #091F43;
     width: 100%;
-    height: 650px;
+    height: 800px;
     margin:0;
 
     header{
@@ -13,4 +13,16 @@
       margin:0.5em auto;
       max-width:200px;
     }
+}
+
+@media screen and (min-width: 1024px){
+  .auth-container{
+    height: 850px;
+  }
+}
+
+@media screen and (min-width: 1440px){
+  .auth-container{
+    height: 1285px;
+  }
 }

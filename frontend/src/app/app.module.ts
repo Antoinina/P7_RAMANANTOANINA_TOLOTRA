@@ -22,6 +22,7 @@ import { AlertComponent } from './alert/alert.component';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommentComponent } from './comment/comment.component';
+import { AllUsersComponent } from './all-users/all-users.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CommentComponent } from './comment/comment.component';
     ArticleFormComponent,
     FourOhFourComponent,
     AlertComponent,
-    CommentComponent
+    CommentComponent,
+    AllUsersComponent
   ],
   imports: [
     BrowserModule,

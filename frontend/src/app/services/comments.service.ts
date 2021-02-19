@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 import { Comment } from '../models/Comment.model';
 import { AuthService } from './auth.service';
 
@@ -18,7 +19,6 @@ export class CommentService {
 
     publishComment(data: Comment){
         const comment = { ...data, userId: this.authService.getAuthentifiedUser().userId };
-        console.log('comment', comment);
         return this.http.post('http://localhost:3000/api/comments', comment);
     }
 

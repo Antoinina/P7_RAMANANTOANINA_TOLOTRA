@@ -32,10 +32,11 @@ export class ArticlesComponent implements OnInit {
     } else {
       this.pictureProfil = false;
     }
-
+    
     this.articleService.getAll()
       .pipe(first())
       .subscribe(articles => this.articles = articles);
+
   }
 
   deleteArticle(id: any) {

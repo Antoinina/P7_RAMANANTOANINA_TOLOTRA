@@ -79,4 +79,13 @@ export class AuthService {
                 return user;
             }));
     }
+
+    deleteUserAdmin(userId) {
+        return this.http.delete(`http://localhost:3000/api/auth/profil/${userId}`)
+            .pipe(map(user => {
+                // auto logout if the logged in user deleted their own record
+               
+                return user;
+            }));
+    }
 }

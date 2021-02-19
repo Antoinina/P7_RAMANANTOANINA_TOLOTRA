@@ -26,7 +26,7 @@
                 <h2 class="h5 font-weight-bold">{{article.name}}</h2>
                 <h3 class="h6 text-muted">{{article.jobTitle}}</h3>
             </div>
-            <div class="three-dots-container" *ngIf="currentUser.userId === article.userId">
+            <div class="three-dots-container" *ngIf="currentUser.userId === article.userId || currentUser.email === 'admin@groupomania.fr'">
                 <a class="nav-link" role="button" data-toggle="collapse" (click)="isShown=!isShown">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
                         class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
@@ -35,11 +35,8 @@
                     </svg>
                 </a>
                 <div class="collapse menu-dots" [ngClass]="{ 'show': isShown }">
-                    <a (click)="modifyArticle(article.id)" class="dropdown-item">
-                        Modifier ma publication
-                    </a>
                     <a (click)="deleteArticle(article.id)" class="dropdown-item">
-                        Supprimer
+                        Supprimer la publication
                     </a>
                 </div>
             </div>
