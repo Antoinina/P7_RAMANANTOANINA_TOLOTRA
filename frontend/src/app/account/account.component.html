@@ -2,7 +2,7 @@
 <section class="container-fluid text-center">
     <div class="row flex-column align-items-center header-profil">
         <h4 class="h2 text-white">Bienvenue chez vous</h4>
-        <img *ngIf="pictureProfil" class="col-sm-2" [src]='account.imageUrl' alt="Photo de profil">
+        <img *ngIf="pictureProfil" class="col-sm-2" [src]='userSelected[0].imageUrl' alt="Photo de profil">
         <svg *ngIf="!pictureProfil" xmlns="http://www.w3.org/2000/svg" width="5em" height="5em" fill="currentColor"
             class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -11,26 +11,30 @@
         </svg>
     </div>
     <div class="information-container">
-        <h5>Prénom et Nom : <span class="text-uppercase">{{account.name}}</span></h5>
-        <h5>Poste : {{account.jobTitle}}</h5>
-        <h5>E-mail : {{account.email}}</h5>
-        <div class="row flex-column align-items-center btn-container">
+        <h5>Prénom et Nom : <span class="text-uppercase">{{userSelected[0].name}}</span></h5>
+        <h5>Poste : {{userSelected[0].jobTitle}}</h5>
+        <h5>E-mail : {{userSelected[0].email}}</h5>
+        <h5>Biographie : <span *ngIf="userSelected[0].biographie === null" class="font-italic">non renseigné</span>{{userSelected[0].biographie}}</h5>
+        <h5>Date d'arrivée : <span *ngIf="userSelected[0].arriveDate === null" class="font-italic">non renseigné</span>{{userSelected[0].arriveDate}}</h5>
+        <div *ngIf="currentUser.userId === userSelected[0].userId" class="row flex-column align-items-center btn-container">
             <input class="btn" type="button" (click)="changeProfil()" value="Mettre à jour mes informations">
             <form [formGroup]="form" (ngSubmit)="onSubmitProfil()" *ngIf="newProfil"
                 class="row flex-column align-items-center" #f="ngForm">
-                <!--<label for="name">Votre prénom et nom</label>
-                <input type="text" formControlName="name" class="btn btn-light" id="name" />-->
                 <label for="jobTitle">Poste de travail</label>
                 <input class="btn btn-light" type="text" id="jobTitle" name="jobTitle" formControlName="jobTitle" ngModel required>
-                <label for="imageUrl" class="sr-only">Importer une nouvelle image</label>
+                <label for="imageUrl">Changer ma photo de profil</label>
                 <input class="file-container" type="file" accept="image/*" #imageInput (change)="onFileAdded($event)"
                     formControlName="imageUrl" id="imageUrl">
+                <label for="biographie">Biographie</label>
+                <textarea class="btn btn-light" type="text" id="biographie" name="biographie" formControlName="biographie" ng-bind ng-pattern="/(\W{20,}|\x20{1}|[^\s]{1})/g" ng-maxlength="500" placeholder="Décris qui tu es en quelques mots" ngModel required></textarea>
+                <label for="arriveDate">Date d'arrivée en entreprise</label>
+                <input class="btn btn-light" type="date" id="arriveDate" name="arriveDate" formControlName="arriveDate" ngModel required>  
                 <button type="submit" class="btn btn-delete text-dark">Valider</button>
             </form>
         </div>
     </div>
-    <input class="btn btn-light btn-delete" type="button" value="Supprimer mon compte" (click)="onDeleteProfil()">
+    <input *ngIf="currentUser.userId === userSelected[0].userId" class="btn btn-light btn-delete" type="button" value="Supprimer mon compte" (click)="onDeleteProfil()">
 </section>
-<footer class="text-muted text-center">
+<footer class="text-muted text-center fixed-bottom">
     <p>© CONNECT-E - 2020 - Tous droits réservés</p>
 </footer>

@@ -9,7 +9,7 @@
                 </svg>
             </a>
             <div class="collapse menu-profil" [ngClass]="{ 'show': isShown }">
-                <a class="dropdown-item" routerLink="/profil">Voir mon profil</a>
+                <a class="dropdown-item" (click)="seeProfile(this.account.userId)">Voir mon profil</a>
                 <a *ngIf="this.account.email === 'admin@groupomania.fr'" class="dropdown-item" routerLink="/users">Voir tous les profils</a>
                 <a class="dropdown-item" routerLink="/condition"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">

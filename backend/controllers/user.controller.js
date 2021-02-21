@@ -14,6 +14,8 @@ exports.updateOne = (req, res) => {
         password: req.body.password,
         name: req.body.name,
         jobTitle: req.body.jobTitle,
+        biographie: req.body.biographie,
+        arriveDate: req.body.arriveDate,
         imageUrl: req.file && req.file.filename ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`:undefined
     });
     Customer.updateById(req.params.userId,user, (err, data) => {

@@ -6,4 +6,6 @@ export class User {
     jobTitle: string;
     imageUrl: string;
     token: string;
+    arriveDate: string;
+    biographie: string;
 }

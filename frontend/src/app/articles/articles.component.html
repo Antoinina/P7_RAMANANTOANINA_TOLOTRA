@@ -9,7 +9,7 @@
         <path fill-rule="evenodd"
             d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
     </svg>
-    <label for="publication">Partage de publication</label>
+    <label for="publication" class="sr-only">Partage de publication</label>
     <input routerLink="/publication" type="text" class="btn btn-outline-dark col-10"
        id="publication" placeholder="Partage avec nous ce que tu veux !">
 </section>
@@ -24,7 +24,7 @@
                     d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
             </svg>
             <div>
-                <h2 class="h5 font-weight-bold">{{article.name}}</h2>
+                <a (click)="getById(article.userId,article.user)"><h2 class="h5 font-weight-bold">{{article.name}}</h2></a>
                 <h3 class="h6 text-muted">{{article.jobTitle}}</h3>
             </div>
             <div class="three-dots-container" *ngIf="currentUser.userId === article.userId || currentUser.email === 'admin@groupomania.fr'">

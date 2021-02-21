@@ -10,6 +10,8 @@ const Customer = function (customer) {
   this.imageUrl = customer.imageUrl;
   this.name = customer.name;
   this.jobTitle = customer.jobTitle;
+  this.arriveDate = customer.arriveDate;
+  this.biographie = customer.biographie;
 };
 
 /* Create user profil in the db */
@@ -27,8 +29,8 @@ Customer.create = (newCustomer, result) => {
 };
 
 /* To access the user profil saved in the db */
-Customer.findById = (id, result) => {
-  sql.query("SELECT * FROM Users WHERE userId = ?", [id], (err, res) => {
+Customer.findById = (userId, result) => {
+  sql.query("SELECT * FROM Users WHERE userId = ?", [userId], (err, res) => {
     if (err) {
       console.log("Error appeared: ", err);
       result(null, err);
@@ -65,8 +67,8 @@ Customer.updateById = (id, updateCustomer, result) => {
 };
 
 /* Delete the user into db */
-Customer.remove = (id, result) => {
-    sql.query("DELETE FROM Users WHERE userId = ?", [id], (err, res) => {
+Customer.remove = (userId, result) => {
+    sql.query('DELETE FROM Users WHERE userId = ?',[userId], (err, res) => {
       if (err) {
         console.log("Error appeared: ", err);
         result(null, err);
@@ -78,7 +80,7 @@ Customer.remove = (id, result) => {
         return;
       }
 
-      console.log("The user was deleted: ", id);
+      console.log("The user was deleted: ", userId);
       result(null, res);
     });
 };

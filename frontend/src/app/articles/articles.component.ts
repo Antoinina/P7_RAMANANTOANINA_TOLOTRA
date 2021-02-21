@@ -17,6 +17,7 @@ export class ArticlesComponent implements OnInit {
   account;
   pictureProfil = true;
   isShown = false;
+  userSelected;
 
   constructor(private articleService: ArticleService,
     private authService: AuthService,
@@ -33,10 +34,10 @@ export class ArticlesComponent implements OnInit {
       this.pictureProfil = false;
     }
 
-    this.articleService.getAll()
+      this.articleService.getAll()
       .pipe(first())
-      .subscribe(articles => this.articles = articles);
-
+      .subscribe(articles => this.articles = articles)
+    
   }
 
   deleteArticle(id: any) {
@@ -54,6 +55,13 @@ export class ArticlesComponent implements OnInit {
     this.articleService.userLike(id, newArticle)
       .pipe(first())
       .subscribe();
+  }
+
+  getById(id: any, user){
+    const articleName = this.articles.find(x => x.userId === id)
+    this.authService.getUserById(articleName.userId, user)
+      .pipe(first())
+      .subscribe()
   }
 
 }

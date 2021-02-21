@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
+import { ArticleService } from '../services/articles.service';
 
 @Component({
   selector: 'app-account',
@@ -22,14 +23,20 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   account;
+  currentUser;
   loading = false;
   pictureProfil = true;
+  article;
+  userSelected;
 
   //Convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
   ngOnInit(): void {
-    this.account = this.accountService.getAuthentifiedUser();
+    this.userSelected = JSON.parse(localStorage.getItem('userSelected'));
+    this.account = this.accountService.getUserById(this.route.snapshot.params.userId, this.userSelected);
+
+    this.currentUser = this.accountService.getAuthentifiedUser();
     
     //To show profile picture or avatar
     if (this.account.imageUrl !== null){
@@ -40,7 +47,9 @@ export class AccountComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       jobTitle: ['', Validators.required],
-      imageUrl: [null]
+      imageUrl: [null],
+      arriveDate: [null],
+      biographie: [null]
     });
   }
 
@@ -63,8 +72,9 @@ export class AccountComponent implements OnInit {
   onSubmitProfil() {
     const formData = new FormData();
     formData.append('imageUrl', this.form.get('imageUrl').value);
-    //formData.append('name', this.form.get('name').value);
     formData.append('jobTitle', this.form.get('jobTitle').value);
+    formData.append('biographie', this.form.get('biographie').value);
+    formData.append('arriveDate', this.form.get('arriveDate').value);
 
     this.accountService.update(formData, this.accountService.getAuthentifiedUser().userId)
       .pipe(first())
@@ -83,9 +93,7 @@ export class AccountComponent implements OnInit {
   onDeleteProfil(){
     this.accountService.delete(this.accountService.getAuthentifiedUser().userId)
       .pipe(first())
-      .subscribe(
-        
-      );
+      .subscribe();
   }
 
 }

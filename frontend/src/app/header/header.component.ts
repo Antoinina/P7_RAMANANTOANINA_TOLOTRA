@@ -24,9 +24,8 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  seeProfile() {
-    const userId = localStorage.getItem('userId');
-    this.router.navigate(['/profil', userId]);
+  seeProfile(id: any) {
+    this.router.navigate([`/profil/${id}`]);
   }
 
   logout() {

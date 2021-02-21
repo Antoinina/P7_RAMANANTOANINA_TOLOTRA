@@ -23,6 +23,12 @@
 
 @media screen and (min-width: 1440px){
   .auth-container{
-    height: 1285px;
+    height: 750px;
+  }
+}
+
+@media screen and (min-width: 2000px){
+  .auth-container{
+    height: 1280px;
   }
 }

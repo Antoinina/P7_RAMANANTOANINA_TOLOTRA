@@ -4,7 +4,7 @@
     color:white;
 }
 section{
-    height: auto;
+    height: 850px;
     img{
         border-radius: 50%;
     }
@@ -20,13 +20,11 @@ section{
             margin-top:2em;
             input{
                 color: #D1515A;
+                margin-bottom: 0.5em;
                 &:focus{
                     box-shadow:inherit!important;
                 }
             }            
-        }
-        .file-container{
-            margin-top: 1em;
         }
     }
     .btn-delete{
@@ -50,6 +48,10 @@ section{
             }
         }
     }
+    section{
+        height: 900px;
+    }
+    
 }
 footer{
     p{

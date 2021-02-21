@@ -9,7 +9,6 @@ import { AlertService } from '../services/alert.service';
 
 import { User } from '../models/User.model';
 import { Comment } from '../models/Comment.model';
-import { I18nPluralPipe } from '@angular/common';
 import { Article } from '../models/Article.model';
 
 @Component({
