@@ -73,7 +73,9 @@ export class AuthService {
     }
 
     delete(userId) {
-        localStorage.removeItem('user'); // to remove data stocked in the localstorage
+        // to remove data stocked in the localstorage
+        localStorage.removeItem('user');
+        localStorage.removeItem('userSelected'); 
         return this.http.delete(`http://localhost:3000/api/auth/profil/${userId}`)
             .pipe(map(user => {
                 // auto logout if the logged in user deleted their own record 
@@ -83,7 +85,7 @@ export class AuthService {
             }));
     }
 
-    deleteUserAdmin(userId) {
+    deleteUserAdmin(userId) { 
         return this.http.delete(`http://localhost:3000/api/auth/profil/${userId}`)
             .pipe(map(user => {
                 // auto logout if the logged in user deleted their own record

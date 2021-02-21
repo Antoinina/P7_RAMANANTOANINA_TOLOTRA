@@ -14,7 +14,7 @@
                     <p>{{user.name}} </p>
                     <p>{{user.jobTitle}}</p>
                 </div> 
-                <input class="btn btn-danger btn-delete" type="button" value="Supprimer le compte" (click)="onDeleteUser()">
+                <input class="btn btn-danger btn-delete" type="button" value="Supprimer le compte" (click)="onDeleteUser(user.userId)">
             </li>
         </ul>
     </div>

@@ -38,7 +38,8 @@ CREATE TABLE Comments(
      userId INT UNSIGNED,
      CONSTRAINT fk_userId_userId
      FOREIGN KEY (userId)
-     REFERENCES Users(userId),
+     REFERENCES Users(userId)
+     ON DELETE SET NULL,
      CONSTRAINT fk_id_articleId
      FOREIGN KEY (articleId)
      REFERENCES Articles(id)
@@ -52,7 +53,8 @@ CREATE TABLE Usersliked(
      userId INT UNSIGNED,
      CONSTRAINT fk_articleId_userId
      FOREIGN KEY (userId)
-     REFERENCES Users(userId),
+     REFERENCES Users(userId)
+     ON DELETE SET NULL,
      CONSTRAINT fk_articleId_articleId
      FOREIGN KEY (articleId)
      REFERENCES Articles(id)

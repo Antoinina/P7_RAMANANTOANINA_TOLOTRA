@@ -15,7 +15,7 @@ export class AllUsersComponent implements OnInit {
   loading = false;
 
   constructor(private authService: AuthService,
-    private router: Router) { }
+    private router : Router) { }
 
   ngOnInit(): void {
     this.account = this.authService.getAuthentifiedUser();
@@ -27,12 +27,14 @@ export class AllUsersComponent implements OnInit {
     }
   }
 
-  onDeleteUser(){
-    this.authService.deleteUserAdmin(this.account.userId)
-      .pipe(first())
-      .subscribe(
-        
-      );
+  onDeleteUser(userId){
+    this.authService.deleteUserAdmin(userId)
+    .pipe(first())
+    .subscribe({
+      next: () => {
+        this.router.navigate(['/articles']);
+      }
+    });
   }
 
 }
